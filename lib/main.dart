@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'components/button_tunder.dart';
 import 'components/text_field_container.dart';
 
@@ -150,24 +150,15 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SocialIcon(
-                  child:  Icon(
-                    Icons.facebook,
-                    color: Colors.black,
-                  ),
+                  src: "assets/icons/facebook.svg",
                   press: (){},
                 ),
                 SocialIcon(
-                  child:  Icon(
-                    Icons.fmd_good_rounded,
-                    color: Colors.black,
-                  ),
+                  src: "assets/icons/google.svg",
                   press: (){},
                 ),
                 SocialIcon(
-                  child:  Icon(
-                    Icons.linked_camera,
-                    color: Colors.black,
-                  ),
+                  src:   "assets/icons/linkedin.svg",
                   press: (){},
                 ),
               ],
@@ -189,10 +180,10 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class SocialIcon extends StatelessWidget {
-  final Widget child;
+  final String src;
   final Function press;
   const SocialIcon({
-    Key? key, required this.child, required this.press,
+    Key? key, required this.src, required this.press,
   }) : super(key: key);
 
   @override
@@ -200,15 +191,21 @@ class SocialIcon extends StatelessWidget {
     return GestureDetector(
       onTap: press(),
       child: Container(
+        margin: EdgeInsets.all(20),
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           border: Border.all(
             width: 2,
-            color: Colors.black,
+            color: Colors.grey,
           ),
           shape: BoxShape.circle,
         ),
-        child:child,
+        child:SvgPicture.asset(
+          src,
+          width: 20,
+          height: 20,
+          color: Colors.grey,
+        ),
       ),
     );
   }
