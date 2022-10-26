@@ -1,4 +1,9 @@
+
+
 import 'package:flutter/material.dart';
+
+import 'components/button_tunder.dart';
+import 'components/text_field_container.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Tunder'),
     );
   }
 }
@@ -95,21 +100,120 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            const TextFieldContainer(
+              child: TextField(
+                  decoration: InputDecoration(
+                      icon: Icon(
+                        Icons.person,
+                        color: Colors.black54,
+                      ),
+                      hintText: "Login")),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            const TextFieldContainer(
+                child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                icon: Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                suffixIcon: Icon(
+                  Icons.visibility,
+                  color: Colors.black,
+                ),
+                border: InputBorder.none,
+                hintText: "Password",
+              ),
+            )),
+            ButtonTUnder(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: const Text("Connexion"),
             ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height *0.02),
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Row(
+                children:  <Widget>[
+                  buildExpanded(),
+                  Text(
+                    "OU",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600
+                    ,),
+                  ),
+                  buildExpanded(),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SocialIcon(
+                  child:  Icon(
+                    Icons.facebook,
+                    color: Colors.black,
+                  ),
+                  press: (){},
+                ),
+                SocialIcon(
+                  child:  Icon(
+                    Icons.fmd_good_rounded,
+                    color: Colors.black,
+                  ),
+                  press: (){},
+                ),
+                SocialIcon(
+                  child:  Icon(
+                    Icons.linked_camera,
+                    color: Colors.black,
+                  ),
+                  press: (){},
+                ),
+              ],
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Expanded buildExpanded() {
+    return Expanded(
+                  child: Divider(
+                    color: Colors.black,
+                    height: 1.5,
+                  ),
+                );
+  }
+}
+
+class SocialIcon extends StatelessWidget {
+  final Widget child;
+  final Function press;
+  const SocialIcon({
+    Key? key, required this.child, required this.press,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: press(),
+      child: Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: Colors.black,
+          ),
+          shape: BoxShape.circle,
+        ),
+        child:child,
+      ),
     );
   }
 }
+
+
+
+
