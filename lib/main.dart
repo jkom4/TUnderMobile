@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'components/button_tunder.dart';
@@ -16,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TUnder',
       theme: ThemeData(
         primarySwatch: Colors.grey,
@@ -35,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,17 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text("Connexion"),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height *0.02),
+              margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02),
               width: MediaQuery.of(context).size.width * 0.8,
               child: Row(
-                children:  <Widget>[
+                children: <Widget>[
                   buildExpanded(),
                   Text(
                     "OU",
                     style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600
-                    ,),
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   buildExpanded(),
                 ],
@@ -97,15 +96,15 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 SocialIcon(
                   src: "assets/icons/facebook.svg",
-                  press: (){},
+                  press: () {},
                 ),
                 SocialIcon(
                   src: "assets/icons/google.svg",
-                  press: (){},
+                  press: () {},
                 ),
                 SocialIcon(
-                  src:   "assets/icons/linkedin.svg",
-                  press: (){},
+                  src: "assets/icons/linkedin.svg",
+                  press: () {},
                 ),
               ],
             )
@@ -117,11 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Expanded buildExpanded() {
     return Expanded(
-                  child: Divider(
-                    color: Colors.black,
-                    height: 1.5,
-                  ),
-                );
+      child: Divider(
+        color: Colors.black,
+        height: 1.5,
+      ),
+    );
   }
 }
 
@@ -129,7 +128,9 @@ class SocialIcon extends StatelessWidget {
   final String src;
   final Function press;
   const SocialIcon({
-    Key? key, required this.src, required this.press,
+    Key? key,
+    required this.src,
+    required this.press,
   }) : super(key: key);
 
   @override
@@ -146,7 +147,7 @@ class SocialIcon extends StatelessWidget {
           ),
           shape: BoxShape.circle,
         ),
-        child:SvgPicture.asset(
+        child: SvgPicture.asset(
           src,
           width: 20,
           height: 20,
@@ -156,7 +157,3 @@ class SocialIcon extends StatelessWidget {
     );
   }
 }
-
-
-
-
