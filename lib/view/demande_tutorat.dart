@@ -4,9 +4,9 @@ import 'package:tunder/components/title_page.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
 
 class DemandeTutorat extends StatelessWidget {
-  final DemandePresenter _demandePresenter = DemandePresenter(this);
+  //final DemandePresenter _demandePresenter = DemandePresenter(this);
 
-  const DemandeTutorat({super.key});
+   DemandeTutorat({super.key});
 
   @override
   Widget build(BuildContext context) {
