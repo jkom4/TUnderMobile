@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tunder/%20view/i_demande_tutorat.dart';
 import 'package:tunder/components/blocs_dropdown.dart';
 import 'package:tunder/components/title_page.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
 
-class DemandeTutorat extends StatelessWidget {
-  final DemandePresenter _demandePresenter = DemandePresenter(this);
+class DemandeTutorat extends StatelessWidget implements IdemandeTutorat {
+  //final DemandePresenter _demandePresenter = DemandePresenter(this);
 
   const DemandeTutorat({super.key});
 
@@ -24,5 +25,15 @@ class DemandeTutorat extends StatelessWidget {
         ],
       )),
     ));
+  }
+
+  @override
+  void displayCours() {
+    // TODO: implement displayCours
+  }
+
+  @override
+  void displayTuteurs() {
+    // TODO: implement displayTuteurs
   }
 }
