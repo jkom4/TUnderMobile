@@ -1,5 +1,4 @@
 class Cours {
-  late int id;
   late String nom;
   late String bloc;
 
@@ -7,15 +6,9 @@ class Cours {
     setNom = nom;
     setBloc = bloc;
   }
-
-  int get getId {
-    return id;
-  }
-
-  set setId(int id) {
-    if (id > 0) {
-      this.id = id;
-    }
+  Cours.fromJson(Map<String, dynamic> json) {
+    setNom = json['nom'];
+    setBloc = json['bloc'];
   }
 
   String get getNom {

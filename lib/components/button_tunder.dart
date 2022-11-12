@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 class ButtonTUnder extends StatelessWidget {
   final double width;
   final Widget child;
-
-  const ButtonTUnder({
-    Key? key,
-    required this.width,
-    required this.child,
-  }) : super(key: key);
+  final Function callback;
+  const ButtonTUnder(
+      {Key? key,
+      required this.width,
+      required this.child,
+      required this.callback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,9 @@ class ButtonTUnder extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           textStyle: const TextStyle(fontSize: 20),
         ),
-        onPressed: () {},
+        onPressed: () {
+          callback();
+        },
         child: child,
       ),
     );

@@ -1,11 +1,25 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tunder/model/environment.dart';
 import 'package:tunder/view/MyHomePage.dart';
 import 'package:tunder/view/demande_tutorat.dart';
 
-
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: '.env.development');
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -20,11 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home:  const MyHomePage(title: 'Accueil',),
+      home: DemandeTutorat(),
     );
   }
 }
-
-
-
-

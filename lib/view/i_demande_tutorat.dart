@@ -1,4 +1,5 @@
 abstract class IdemandeTutorat {
-  void displayCours();
-  void displayTuteurs();
+  void displayError(String errorMessage);
+
+  void displayConfirmation(String confirmationMessage);
 }

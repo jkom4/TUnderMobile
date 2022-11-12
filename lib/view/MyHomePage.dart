@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-             const TextFieldContainer(
+            const TextFieldContainer(
               child: TextField(
                   decoration: InputDecoration(
                       icon: Icon(
@@ -33,25 +33,26 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       hintText: "Login")),
             ),
-             const TextFieldContainer(
+            const TextFieldContainer(
                 child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    icon: Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.visibility,
-                      color: Colors.black,
-                    ),
-                    border: InputBorder.none,
-                    hintText: "Password",
-                  ),
-                )),
+              obscureText: true,
+              decoration: InputDecoration(
+                icon: Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                suffixIcon: Icon(
+                  Icons.visibility,
+                  color: Colors.black,
+                ),
+                border: InputBorder.none,
+                hintText: "Password",
+              ),
+            )),
             ButtonTUnder(
               width: MediaQuery.of(context).size.width * 0.8,
               child: const Text("Connexion"),
+              callback: () {},
             ),
             Container(
               margin: EdgeInsets.symmetric(
