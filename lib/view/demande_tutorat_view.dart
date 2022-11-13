@@ -59,36 +59,38 @@ class _DemandeTutoratState extends State<DemandeTutorat>
   Widget build(BuildContext context) {
     const pageTitle = "Demande de tutorat";
     return Scaffold(
-        body: Container(
-      margin: const EdgeInsets.all(40),
-      child: Form(
-          child: SingleChildScrollView(
-              child: Column(
-        children: <Widget>[
-          const TitlePage(title: pageTitle),
-          blocsDropdown(_updateCoursGivenBlocState),
-          coursDropdown(coursGivenBloc, _updateTutorGivenCoursState),
-          tutorDropdown(tutorGivenCours, _updateSelectedTutor),
-          commentText(_updateComment),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                width: 0,
-                height: 10,
-              ),
-              ButtonTUnder(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  callback: () {
-                    demandePresenter.confirmForm(
-                        blocSelected, coursSelected, tutorSelected, comment);
-                  },
-                  child: const Text("Demander")),
-            ],
-          )
-        ],
-      ))),
-    ));
+      body: Container(
+        margin: const EdgeInsets.all(40),
+        child: Form(
+            child: SingleChildScrollView(
+                child: Column(
+          children: <Widget>[
+            const TitlePage(title: pageTitle),
+            blocsDropdown(_updateCoursGivenBlocState),
+            coursDropdown(coursGivenBloc, _updateTutorGivenCoursState),
+            tutorDropdown(tutorGivenCours, _updateSelectedTutor),
+            commentText(_updateComment),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  width: 0,
+                  height: 10,
+                ),
+                ButtonTUnder(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    callback: () {
+                      demandePresenter.confirmForm(
+                          blocSelected, coursSelected, tutorSelected, comment);
+                    },
+                    child: const Text("Demander")),
+              ],
+            )
+          ],
+        ))),
+      ),
+      //TODO: ADD APP BAR
+    );
   }
 
   @override

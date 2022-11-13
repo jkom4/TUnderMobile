@@ -1,52 +1,38 @@
-// ignore_for_file: unnecessary_this
-
-import 'dart:ffi';
-
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/rencontre.dart';
 import 'package:tunder/model/utilisateur.dart';
 
 class Demande {
-  late int id;
   String? commentaire;
   late String etat;
   late DateTime dateDemande;
-  late int gestionnaireId;
-  late int demandeurId;
-  late int coursID;
-  int? rencontreId;
+  late Utilisateur? gestionnaire;
+  late Utilisateur? demandeur;
+  late Cours cours;
+  Rencontre? rencontre;
 
-  Demande(DateTime date, int demandeurId, int gestionnaireId, int coursId) {
+  Demande(DateTime date, String etat, Utilisateur? demandeur,
+      Utilisateur? gestionnaire, Cours cours, Rencontre? recontre) {
     setDate = date;
-    this.setEtat = "waiting";
-    this.setGestionnaire = gestionnaireId;
-    this.setDemandeur = demandeurId;
-    this.setCours = coursId;
+    setEtat = etat;
+    setGestionnaire = gestionnaire;
+    setDemandeur = demandeur;
+    setCours = cours;
+    rencontre = rencontre;
   }
 
   Demande.fromJson(Map<String, dynamic> json) {
-    setId = int.parse(json['id']);
     setCommentaire = json['commentaire'];
     setEtat = json['etat'];
     setDate = DateTime.parse(json['dateDemande']);
-    setGestionnaire = int.parse(json['gestionnaireId']);
-    setDemandeur = int.parse(json['demandeurId']);
-    setCours = int.parse(json['cours']);
-    setRencontre = int.parse(json[rencontreId]);
-  }
-
-  int get getId {
-    return this.id;
-  }
-
-  set setId(int id) {
-    if (id > 0) {
-      this.id = id;
-    }
+    setGestionnaire = Utilisateur.fromJson(json['gestionnaire']);
+    setDemandeur = Utilisateur.fromJson(json['gestionnaire']);
+    setCours = Cours.fromJson(json['cours']);
+    setRencontre = Rencontre.fromJson(json[rencontre]);
   }
 
   String? get getCommentaire {
-    return this.commentaire;
+    return commentaire;
   }
 
   set setCommentaire(String commentaire) {
@@ -56,7 +42,7 @@ class Demande {
   }
 
   String? get getEtat {
-    return this.etat;
+    return etat;
   }
 
   set setEtat(String etat) {
@@ -69,50 +55,42 @@ class Demande {
   }
 
   set setDate(DateTime date) {
-    this.dateDemande = date;
+    dateDemande = date;
   }
 
   DateTime get getDate {
-    return this.dateDemande;
+    return dateDemande;
   }
 
-  set setDemandeur(int demandeurId) {
-    if (demandeurId > 0) {
-      this.demandeurId = demandeurId;
-    }
+  set setDemandeur(Utilisateur? demandeur) {
+    this.demandeur = demandeur;
   }
 
-  int? get getDemandeurId {
-    return this.demandeurId;
+  Utilisateur? get getDemandeur {
+    return demandeur;
   }
 
-  set setGestionnaire(int gestionnaireId) {
-    if (gestionnaireId > 0) {
-      this.gestionnaireId = gestionnaireId;
-    }
+  set setGestionnaire(Utilisateur? gestionnaire) {
+    this.gestionnaire = gestionnaire;
   }
 
-  int? get getGestionnaireId {
-    return this.getDemandeurId;
+  Utilisateur? get getGestionnaire {
+    return gestionnaire;
   }
 
-  set setCours(int coursId) {
-    if (coursId > 0) {
-      this.coursID = coursId;
-    }
+  set setCours(Cours cours) {
+    this.cours = cours;
   }
 
-  int? get getCoursId {
-    return this.coursID;
+  Cours get getCours {
+    return cours;
   }
 
-  set setRencontre(int rencontreId) {
-    if (rencontreId > 0) {
-      this.rencontreId = rencontreId;
-    }
+  set setRencontre(Rencontre rencontre) {
+    this.rencontre = rencontre;
   }
 
-  int? get getRencontreId {
-    return this.rencontreId;
+  Rencontre? get getRencontre {
+    return rencontre;
   }
 }

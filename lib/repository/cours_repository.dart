@@ -8,7 +8,7 @@ import 'package:tunder/repository/i_cours_repository.dart';
 import 'package:http/http.dart' as http;
 
 class HttpCoursRepository implements IcoursRepository {
-  final String apiUrl = Environment.apiUrl;
+  static final String apiUrl = Environment.apiUrl;
 
   HttpCoursRepository();
 

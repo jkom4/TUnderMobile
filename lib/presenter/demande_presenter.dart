@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/repository/cours_repository.dart';

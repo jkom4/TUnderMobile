@@ -7,7 +7,11 @@ class Utilisateur {
   late String nom;
   late String email;
 
-  Utilisateur(this.prenom, this.nom, this.email);
+  Utilisateur(String prenom, String nom, String email) {
+    setNom = nom;
+    setPrenom = prenom;
+    setEmail = email;
+  }
 
   Utilisateur.fromJson(Map<String, dynamic> json) {
     setNom = json['nom'];
