@@ -16,6 +16,7 @@ class MesDemandesPresenter {
     //return demandeRepository.getMyWaitingDemande();
     List<Demande> demandes = List.empty(growable: true);
     demandes.add(Demande(
+        1,
         DateTime.now(),
         "waiting",
         Utilisateur("Andrew", "Tistaert", "a.tistaert@evs.com"),
@@ -23,6 +24,7 @@ class MesDemandesPresenter {
         Cours("Mathematique", "B1"),
         null));
     demandes.add(Demande(
+        2,
         DateTime.now(),
         "waiting",
         Utilisateur("Khalil", "Kari", "K.Karim@odoo.com"),
@@ -30,13 +32,13 @@ class MesDemandesPresenter {
         Cours("Arabe", "B4"),
         null));
     demandes.add(Demande(
+        3,
         DateTime.now(),
         "waiting",
         Utilisateur("Antoine", "Bichon", "a.Bichon@evs.com"),
         Utilisateur("caca", "prout", "c.proute@evs.com"),
         Cours("Verdure", "B3"),
         null));
-    debugPrint(demandes.first.getDemandeur!.getNom);
     return Future<List<Demande>>.delayed(
         const Duration(seconds: 1), () => demandes);
   }

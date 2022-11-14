@@ -14,7 +14,7 @@ class HttpCoursRepository implements IcoursRepository {
 
   @override
   Future<List<Cours>> getCoursFromBloc({required String blocName}) async {
-    Response response = await http.get(Uri.parse("$apiUrl/Tutorat/$blocName"));
+    Response response = await http.get(Uri.parse("$apiUrl/Cours/$blocName"));
 
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
@@ -29,7 +29,7 @@ class HttpCoursRepository implements IcoursRepository {
   Future<List<Utilisateur>> getTuteursForCours(
       {required String blocName, required String coursName}) async {
     Response response =
-        await http.get(Uri.parse("$apiUrl/Tutorat/$blocName/bloc/$coursName"));
+        await http.get(Uri.parse("$apiUrl/Cours/$blocName/bloc/$coursName"));
 
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
