@@ -14,7 +14,7 @@ class SocialIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: press(),
+      onTap: () => press(),
       child: Container(
         margin: EdgeInsets.all(20),
         padding: EdgeInsets.all(20),
