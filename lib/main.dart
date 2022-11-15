@@ -1,16 +1,14 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tunder/model/environment.dart';
-import 'package:tunder/view/MyHomePage.dart';
+
 import 'package:tunder/view/connected_home_page_view.dart';
-import 'package:tunder/view/demande_tutorat_view.dart';
-import 'package:tunder/view/mes_demandes_view.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env.development');
+  await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
@@ -31,12 +29,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'TUnder',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      home: Home(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'TUnder',
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: const Home());
   }
 }

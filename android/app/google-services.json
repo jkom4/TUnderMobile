@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "214356713726",
+    "project_id": "tunder-chat",
+    "storage_bucket": "tunder-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214356713726:android:686ccc59d9b65a5fe5c5af",
+        "android_client_info": {
+          "package_name": "com.example.tunder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214356713726-u0pd2sngm3md436ad05aeal1lodaokd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqiTbHhuywjsg23WIxDKgAWqX4WVDIfAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214356713726-u0pd2sngm3md436ad05aeal1lodaokd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
