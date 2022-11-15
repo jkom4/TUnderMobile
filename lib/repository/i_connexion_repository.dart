@@ -1,5 +1,7 @@
 
+import '../Model/utilisateur.dart';
+
 abstract class IConnexionRepository {
-  Future fetchGoogleSign();
+  Future signInWithGoogle();
   Future fetchLogin(String email, String password);
 }

@@ -1,13 +1,12 @@
 import 'dart:io';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunder/view/MyHomePage.dart';
-import 'package:tunder/view/demande_tutorat.dart';
 
 
-void main() {
-  HttpOverrides.global = new MyHttpOverrides();//A RETIRER AUSSI
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -27,14 +26,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//A RETIRER POUR LA PROD
-class MyHttpOverrides extends HttpOverrides{
-  @override
-  HttpClient createHttpClient(SecurityContext? context){
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
-  }
-}
+
 
 
 

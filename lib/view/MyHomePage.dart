@@ -102,12 +102,14 @@ class MyHomePage extends StatefulWidget {
                 SocialIcon(
                   src: "assets/icons/google.svg",
                   press: () {
-                    //_presenter.googleConnect();
+                    _presenter.googleConnect();
+                    //ShowMessage("google");
                   },
                 ),
                 SocialIcon(
                   src: "assets/icons/linkedin.svg",
-                  press: () {},
+                  press: ()  {
+                  },
                 ),
               ],
             )
@@ -133,4 +135,8 @@ class MyHomePage extends StatefulWidget {
     SnackbarCustom.showSnackBar(context,message);
   }
 
+
+
+
 }
+
