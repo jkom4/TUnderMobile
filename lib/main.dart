@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tunder/view/MyHomePage.dart';
-import 'package:tunder/view/demande_tutorat.dart';
+import 'package:tunder/view/connected_home_page_view.dart';
+import 'package:tunder/view/profil.dart';
+
 
 
 Future<void> main() async {
@@ -22,11 +24,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home:  const MyHomePage(title: 'Accueil',),
+      //home:  const MyHomePage(title: 'Accueil',),
+      home: const MyHomePage(),
+
     );
   }
 }
-
 
 
 

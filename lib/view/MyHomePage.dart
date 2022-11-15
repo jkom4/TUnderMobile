@@ -1,24 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tunder/components/snackbar.dart';
+import 'package:tunder/presenter/i_connexion_view.dart';
 import '../components/button_tunder.dart';
 import '../components/social_icon.dart';
 import '../components/text_field_container.dart';
+import '../presenter/connexion_presenter.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
- class _MyHomePageState extends State<MyHomePage> implements IConnexionView {
+ class _LoginPageState extends State<LoginPage> implements IConnexionView {
   late ConnexionPresenter _presenter;
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
-  _MyHomePageState(){
+  _LoginPageState(){
     _presenter =  ConnexionPresenter(this);
 
   }
@@ -35,7 +38,7 @@ class MyHomePage extends StatefulWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-              const TextFieldContainer(
+               TextFieldContainer(
               child:  TextField(
                   controller : emailController,
                   decoration: InputDecoration(
@@ -45,7 +48,7 @@ class MyHomePage extends StatefulWidget {
                       ),
                       hintText: "Login")),
             ),
-             const TextFieldContainer(
+              TextFieldContainer(
                 child: TextField(
                   controller : passwordController ,
                   obscureText: true,
@@ -124,8 +127,13 @@ class MyHomePage extends StatefulWidget {
   }
 
   @override
-  void ShowMessage(String message) {
+  void showMessage(String message) {
     SnackbarCustom.showSnackBar(context,message);
+  }
+
+  @override
+  void showProfil(String url, String name, String email) {
+    // TODO: implement showProfil
   }
 
 

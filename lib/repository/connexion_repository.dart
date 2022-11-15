@@ -30,6 +30,11 @@ class ConnexionRepository implements IConnexionRepository{
 
   }
 
+  Future logout() async {
+    GoogleSignIn().disconnect();
+    FirebaseAuth.instance.signOut();
+  }
+
 
   @override
   Future fetchLogin(String email, String password) async{

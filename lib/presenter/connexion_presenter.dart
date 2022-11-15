@@ -9,13 +9,18 @@ class ConnexionPresenter{
   late IConnexionView _view;
   late ConnexionRepository _repository;
 
+
    ConnexionPresenter(this._view) {
         _repository = new ConnexionRepository();
   }
    googleConnect(){
-    _repository.signInWithGoogle().then((value) => print("value:" +  value.toString()) );
+    _repository.signInWithGoogle().then((value) => {
+      print("Value: " +value),
+    });
   }
-
+  logout(){
+     _repository.logout();
+  }
 
   Connect(String email, String password)
   {

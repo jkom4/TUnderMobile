@@ -1,4 +1,5 @@
 abstract class IConnexionView{
 
-  void ShowMessage(String message);
+  void showMessage(String message);
+  void showProfil(String url,String name, String email);
 }

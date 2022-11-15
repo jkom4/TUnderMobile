@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tunder/view/demande_tutorat_view.dart';
 import 'package:tunder/view/mes_demandes_view.dart';
+import 'package:tunder/view/profil_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   int indexPage = 0;
-  final screens = [MesDemandes(), DemandeTutorat()];
+  final screens = [MesDemandes(), DemandeTutorat(),ProfilPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,13 @@ class _Home extends State<Home> {
               label: "Mes demandes",
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.queue_sharp), label: "Demande tutorat")
+                icon: Icon(Icons.queue_sharp),
+                label: "Demande tutorat"
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: "Profil"
+            ),
           ],
         ));
   }
