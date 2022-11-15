@@ -1,19 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tunder/components/snackbar.dart';
+import 'package:tunder/presenter/i_connexion_view.dart';
 import '../components/button_tunder.dart';
 import '../components/social_icon.dart';
 import '../components/text_field_container.dart';
+import '../presenter/connexion_presenter.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+ class _LoginPageState extends State<LoginPage> implements IConnexionView {
+  late ConnexionPresenter _presenter;
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
+  _LoginPageState(){
+    _presenter =  ConnexionPresenter(this);
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const TextFieldContainer(
-              child: TextField(
+               TextFieldContainer(
+              child:  TextField(
+                  controller : emailController,
                   decoration: InputDecoration(
                       icon: Icon(
                         Icons.person,
@@ -33,26 +48,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       hintText: "Login")),
             ),
-            const TextFieldContainer(
+              TextFieldContainer(
                 child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                icon: Icon(
-                  Icons.lock,
-                  color: Colors.black,
-                ),
-                suffixIcon: Icon(
-                  Icons.visibility,
-                  color: Colors.black,
-                ),
-                border: InputBorder.none,
-                hintText: "Password",
-              ),
-            )),
+                  controller : passwordController ,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    icon: Icon(
+                      Icons.lock,
+                      color: Colors.black,
+                    ),
+                    suffixIcon: Icon(
+                      Icons.visibility,
+                      color: Colors.black,
+                    ),
+                    border: InputBorder.none,
+                    hintText: "Password",
+                  ),
+                )),
             ButtonTUnder(
               width: MediaQuery.of(context).size.width * 0.8,
               child: const Text("Connexion"),
-              callback: () {},
+              callback: () {
+
+                _presenter.Connect(emailController.text, passwordController.text);
+                },
             ),
             Container(
               margin: EdgeInsets.symmetric(
@@ -81,7 +100,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 SocialIcon(
                   src: "assets/icons/google.svg",
-                  press: () {},
+                  press: () {
+                    _presenter.googleConnect();
+                    //ShowMessage("google");
+                  },
                 ),
                 SocialIcon(
                   src: "assets/icons/linkedin.svg",
@@ -103,4 +125,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  @override
+  void showMessage(String message) {
+    SnackbarCustom.showSnackBar(context,message);
+  }
+
+  @override
+  void showProfil(String url, String name, String email) {
+    // TODO: implement showProfil
+  }
+
+
+
+
 }
