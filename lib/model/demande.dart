@@ -3,7 +3,7 @@ import 'package:tunder/model/rencontre.dart';
 import 'package:tunder/model/utilisateur.dart';
 
 class Demande {
-  late int Id;
+  late int? Id;
   String? commentaire;
   late String etat;
   late DateTime dateDemande;
@@ -12,7 +12,7 @@ class Demande {
   late Cours cours;
   Rencontre? rencontre;
 
-  Demande(int id, DateTime date, String etat, Utilisateur? demandeur,
+  Demande(int? id, DateTime date, String etat, Utilisateur? demandeur,
       Utilisateur? gestionnaire, Cours cours, Rencontre? recontre) {
     setId = id;
     setDate = date;
@@ -33,11 +33,11 @@ class Demande {
     setRencontre = Rencontre.fromJson(json[rencontre]);
   }
 
-  set setId(int id) {
+  set setId(int? id) {
     Id = id;
   }
 
-  int get getId {
+  int? get getId {
     return Id;
   }
 
