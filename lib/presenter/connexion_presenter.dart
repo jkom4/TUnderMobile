@@ -1,5 +1,4 @@
 
-import 'package:tunder/Model/utilisateur.dart';
 import 'package:tunder/presenter/i_connexion_view.dart';
 
 import '../repository/connexion_repository.dart';
@@ -16,7 +15,7 @@ class ConnexionPresenter{
    googleConnect(){
     _repository.signInWithGoogle().then((value) => {
       print("Value: " +value),
-    });
+    }).catchError((onError) => _view.showMessage("Erreur :" + onError.toString()) );
   }
   logout(){
      _repository.logout();
