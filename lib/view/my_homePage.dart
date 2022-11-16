@@ -3,7 +3,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tunder/view/LoginPage.dart';
+import 'package:tunder/view/login_page.dart';
 import 'package:tunder/view/connected_home_page_view.dart';
 
 class MyHomePage extends StatelessWidget{

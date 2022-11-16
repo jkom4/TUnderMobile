@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tunder/presenter/connexion_presenter.dart';
-import 'package:tunder/presenter/i_connexion_view.dart';
+import 'package:tunder/view/i_connexion_view.dart';
 
 import '../components/button_tunder.dart';
 
