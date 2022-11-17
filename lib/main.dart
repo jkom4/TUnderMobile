@@ -9,17 +9,9 @@ import 'package:tunder/view/my_homePage.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env.development');
-  HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
-}
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +32,13 @@ class MyApp extends StatelessWidget {
   }
 
 }
-
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
 
 
 
