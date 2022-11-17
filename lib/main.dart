@@ -2,13 +2,17 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:tunder/view/profil.dart';
+import 'package:tunder/model/demande.dart';
+import 'package:tunder/view/demande_tutorat_view.dart';
+import 'package:tunder/view/mes_demandes_view.dart';
+import 'package:tunder/view/my_homePage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env.development');
-  await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
+
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -24,6 +28,7 @@ class MyHttpOverrides extends HttpOverrides {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }

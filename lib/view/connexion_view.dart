@@ -98,6 +98,7 @@ class _LoginPageState extends State<LoginPage> implements IConnexionView {
                   src: "assets/icons/google.svg",
                   press: () {
                     _presenter.googleConnect();
+
                     //ShowMessage("google");
                   },
                 ),

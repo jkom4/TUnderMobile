@@ -4,13 +4,13 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tunder/model/environment.dart';
 import 'package:tunder/repository/i_connexion_repository.dart';
 import 'package:http/http.dart' as http;
 
 class ConnexionRepository implements IConnexionRepository {
   //TODO remove and use env
-  String baseUrl =
-      Platform.isAndroid ? 'http://10.0.2.2:5244' : 'http://localhost:5244';
+  String baseUrl = Environment.apiUrl;
 
   @override
   Future signInWithGoogle() async {
@@ -40,13 +40,15 @@ class ConnexionRepository implements IConnexionRepository {
   Future fetchLogin(String email, String password) async {
     var data = jsonEncode({"username": email, "password": password});
     var headers = {"Content-Type": "application/json"};
-    final response = await http.post(Uri.parse('${baseUrl}/api/Auth/token'),
+    final response = await http.post(Uri.parse('$baseUrl/Auth/token'),
         headers: headers, body: data);
     if (response.statusCode == 200) {
       //final json = jsonDecode(response.body);
       return response.body;
     } else {
-      debugPrint('response : $response');
+      var status = response.statusCode.toString();
+      debugPrint('response : $status');
+      debugPrint('$baseUrl/Auth/token');
       return null;
     }
   }

@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tunder/presenter/connexion_presenter.dart';
-import 'package:tunder/presenter/i_connexion.dart';
-
 import '../components/button_tunder.dart';
+import '../presenter/i_connexion.dart';
 
 class ProfilPage extends StatelessWidget implements IConnexionView {
   late ConnexionPresenter _presenter = new ConnexionPresenter(this);
