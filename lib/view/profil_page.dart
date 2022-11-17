@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tunder/presenter/connexion_presenter.dart';
-import 'package:tunder/presenter/i_connexion_view.dart';
+import 'package:tunder/presenter/i_connexion.dart';
 
 import '../components/button_tunder.dart';
 
-class ProfilPage extends StatelessWidget implements IConnexionView{
+class ProfilPage extends StatelessWidget implements IConnexionView {
   late ConnexionPresenter _presenter = new ConnexionPresenter(this);
   @override
   Widget build(BuildContext context) {
@@ -16,32 +16,32 @@ class ProfilPage extends StatelessWidget implements IConnexionView{
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Column(mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 32),
-          CircleAvatar(
-            radius: 40,
-            backgroundImage: NetworkImage(user.photoURL!)
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Nom : ' + user.displayName!,
-            style: TextStyle(color: Colors.grey, fontSize: 16),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Email : ' + user.email!,
-            style: TextStyle(color: Colors.grey, fontSize: 16),
-          ),
-          SizedBox(height: 8),
-          ButtonTUnder(
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: const Text("Se deconnecter"),
-            callback: () {
-              _presenter.logout();
-            },
-          ),
-        ],),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 32),
+            CircleAvatar(
+                radius: 40, backgroundImage: NetworkImage(user.photoURL!)),
+            SizedBox(height: 8),
+            Text(
+              'Nom : ' + user.displayName!,
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Email : ' + user.email!,
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            ButtonTUnder(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: const Text("Se deconnecter"),
+              callback: () {
+                _presenter.logout();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -55,5 +55,4 @@ class ProfilPage extends StatelessWidget implements IConnexionView{
   void showProfil(String url, String name, String email) {
     // TODO: implement showProfil
   }
-
 }

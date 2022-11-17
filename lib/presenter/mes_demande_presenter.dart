@@ -4,7 +4,7 @@ import 'package:tunder/model/demande.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/repository/demande_repository.dart';
 import 'package:tunder/repository/i_demande_repository.dart';
-import 'package:tunder/view/i_mes_demandes.dart';
+import 'package:tunder/presenter/i_mes_demandes.dart';
 
 class MesDemandesPresenter {
   ImesDemandes mesDemandeView;

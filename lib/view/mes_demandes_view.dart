@@ -3,8 +3,7 @@ import 'package:tunder/components/demande_item.dart';
 import 'package:tunder/components/title_page.dart';
 import 'package:tunder/model/demande.dart';
 import 'package:tunder/presenter/mes_demande_presenter.dart';
-import 'package:tunder/view/demande_tutorat_view.dart';
-import 'package:tunder/view/i_mes_demandes.dart';
+import 'package:tunder/presenter/i_mes_demandes.dart';
 
 class MesDemandes extends StatefulWidget {
   const MesDemandes({super.key});
@@ -33,6 +32,11 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
             if (snapshot.hasError) {
               return Container();
             } else if (snapshot.hasData) {
+              if (snapshot.data.length == 0) {
+                return const Center(
+                  child: Text('Auncun demande en attente!'),
+                );
+              }
               return ListView.builder(
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,

@@ -6,7 +6,7 @@ import 'package:tunder/components/cours_dropdown.dart';
 import 'package:tunder/components/tutor_dropdown.dart';
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/utilisateur.dart';
-import 'package:tunder/view/i_demande_tutorat.dart';
+import 'package:tunder/presenter/i_demande_tutorat.dart';
 import 'package:tunder/components/title_page.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
 

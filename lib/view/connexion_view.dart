@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tunder/components/snackbar.dart';
-import 'package:tunder/presenter/i_connexion_view.dart';
+import 'package:tunder/presenter/i_connexion.dart';
 import '../components/button_tunder.dart';
 import '../components/social_icon.dart';
 import '../components/text_field_container.dart';
@@ -16,17 +15,14 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
- class _LoginPageState extends State<LoginPage> implements IConnexionView {
+class _LoginPageState extends State<LoginPage> implements IConnexionView {
   late ConnexionPresenter _presenter;
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
-  _LoginPageState(){
-    _presenter =  ConnexionPresenter(this);
-
+  _LoginPageState() {
+    _presenter = ConnexionPresenter(this);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,40 +34,40 @@ class LoginPage extends StatefulWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-               TextFieldContainer(
-              child:  TextField(
-                  controller : emailController,
-                  decoration: InputDecoration(
+            TextFieldContainer(
+              child: TextField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
                       icon: Icon(
                         Icons.person,
                         color: Colors.black54,
                       ),
                       hintText: "Login")),
             ),
-              TextFieldContainer(
+            TextFieldContainer(
                 child: TextField(
-                  controller : passwordController ,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    icon: Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.visibility,
-                      color: Colors.black,
-                    ),
-                    border: InputBorder.none,
-                    hintText: "Password",
-                  ),
-                )),
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                icon: Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                suffixIcon: Icon(
+                  Icons.visibility,
+                  color: Colors.black,
+                ),
+                border: InputBorder.none,
+                hintText: "Password",
+              ),
+            )),
             ButtonTUnder(
               width: MediaQuery.of(context).size.width * 0.8,
               child: const Text("Connexion"),
               callback: () {
-
-                _presenter.Connect(emailController.text, passwordController.text);
-                },
+                _presenter.Connect(
+                    emailController.text, passwordController.text);
+              },
             ),
             Container(
               margin: EdgeInsets.symmetric(
@@ -80,7 +76,7 @@ class LoginPage extends StatefulWidget {
               child: Row(
                 children: <Widget>[
                   buildExpanded(),
-                  Text(
+                  const Text(
                     "OU",
                     style: TextStyle(
                       color: Colors.black,
@@ -118,7 +114,7 @@ class LoginPage extends StatefulWidget {
   }
 
   Expanded buildExpanded() {
-    return Expanded(
+    return const Expanded(
       child: Divider(
         color: Colors.black,
         height: 1.5,
@@ -128,15 +124,11 @@ class LoginPage extends StatefulWidget {
 
   @override
   void showMessage(String message) {
-    SnackbarCustom.showSnackBar(context,message);
+    SnackbarCustom.showSnackBar(context, message);
   }
 
   @override
   void showProfil(String url, String name, String email) {
     // TODO: implement showProfil
   }
-
-
-
-
 }

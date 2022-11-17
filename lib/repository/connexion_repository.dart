@@ -8,8 +8,10 @@ import 'package:tunder/repository/i_connexion_repository.dart';
 import 'package:http/http.dart' as http;
 
 class ConnexionRepository implements IConnexionRepository {
+  //TODO remove and use env
   String baseUrl =
       Platform.isAndroid ? 'http://10.0.2.2:5244' : 'http://localhost:5244';
+
   @override
   Future signInWithGoogle() async {
     // Trigger the authentication flow

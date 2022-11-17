@@ -2,7 +2,7 @@ import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/repository/cours_repository.dart';
 import 'package:tunder/repository/i_cours_repository.dart';
-import 'package:tunder/view/i_demande_tutorat.dart';
+import 'package:tunder/presenter/i_demande_tutorat.dart';
 
 class DemandePresenter {
   IdemandeTutorat tutoratView;
