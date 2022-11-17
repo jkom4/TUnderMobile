@@ -2,20 +2,17 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:tunder/model/demande.dart';
-import 'package:tunder/view/demande_tutorat_view.dart';
-import 'package:tunder/view/mes_demandes_view.dart';
 import 'package:tunder/view/my_homePage.dart';
+
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env.development');
   HttpOverrides.global = MyHttpOverrides();
-
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -37,7 +34,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
+
     );
   }
+
 }
+
+
+
+
+
