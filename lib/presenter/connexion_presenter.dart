@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:tunder/Model/token.dart';
 import 'package:tunder/view/i_connexion_view.dart';
 
 import '../repository/connexion_repository.dart';
@@ -39,7 +36,6 @@ class ConnexionPresenter{
         .catchError((onError) {
           print("error : " + onError.toString());
     });
-
   }
 
 

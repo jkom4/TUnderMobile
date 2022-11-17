@@ -44,7 +44,6 @@ class ConnexionRepository implements IConnexionRepository {
         headers: headers, body: data);
     if (response.statusCode == 200) {
       //final json = jsonDecode(response.body);
-      //Token(json.tokenString,json.expiryDate);
       return response.body;
     } else {
       debugPrint('response : $response');
