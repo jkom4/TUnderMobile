@@ -14,35 +14,7 @@ class ProfilPage extends StatelessWidget implements IConnexionView{
       appBar: AppBar(
         title: const Text("Profil"),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 32),
-          CircleAvatar(
-            radius: 40,
-            backgroundImage: NetworkImage(user.photoURL!)
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Nom : ' + user.displayName!,
-            style: TextStyle(color: Colors.grey, fontSize: 16),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Email : ' + user.email!,
-            style: TextStyle(color: Colors.grey, fontSize: 16),
-          ),
-          SizedBox(height: 8),
-          ButtonTUnder(
-            width: MediaQuery.of(context).size.width * 0.8,
-            child: const Text("Se deconnecter"),
-            callback: () {
-              _presenter.logout();
-            },
-          ),
-        ],),
-      ),
+      body: NewWidget(user: user, presenter: _presenter),
     );
   }
 
@@ -56,4 +28,48 @@ class ProfilPage extends StatelessWidget implements IConnexionView{
     // TODO: implement showProfil
   }
 
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    Key? key,
+    required this.user,
+    required ConnexionPresenter presenter,
+  }) : _presenter = presenter, super(key: key);
+
+  final User user;
+  final ConnexionPresenter _presenter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Column(mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(height: 32),
+        CircleAvatar(
+          radius: 40,
+          backgroundImage: NetworkImage(user.photoURL!)
+        ),
+        SizedBox(height: 8),
+        Text(
+          'Nom : ' + user.displayName!,
+          style: TextStyle(color: Colors.grey, fontSize: 16),
+        ),
+        SizedBox(height: 8),
+        Text(
+          'Email : ' + user.email!,
+          style: TextStyle(color: Colors.grey, fontSize: 16),
+        ),
+        SizedBox(height: 8),
+        ButtonTUnder(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: const Text("Se deconnecter"),
+          callback: () {
+            _presenter.logout();
+          },
+        ),
+      ],),
+    );
+  }
 }
