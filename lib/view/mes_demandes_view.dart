@@ -46,8 +46,8 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                       children: [
                         SizedBox(height: 10),
                         DemandeItem(
-                            nom: demande.getDemandeur!.getNom,
-                            prenom: demande.getDemandeur!.getPrenom,
+                            nom: demande.getDemandeur!,
+                            prenom: demande.getDemandeur!,
                             cours: demande.cours.getNom)
                       ],
                     );

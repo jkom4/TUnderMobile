@@ -1,7 +1,3 @@
-import 'package:tunder/model/role.dart';
-import 'package:tunder/model/synthese.dart';
-import 'package:tunder/model/cours.dart';
-
 class Utilisateur {
   late String prenom;
   late String nom;

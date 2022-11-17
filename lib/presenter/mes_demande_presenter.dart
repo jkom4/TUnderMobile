@@ -15,30 +15,12 @@ class MesDemandesPresenter {
   Future<List<Demande>> getMyWaitingDemande() {
     //return demandeRepository.getMyWaitingDemande();
     List<Demande> demandes = List.empty(growable: true);
-    demandes.add(Demande(
-        1,
-        DateTime.now(),
-        "waiting",
-        Utilisateur("Andrew", "Tistaert", "a.tistaert@evs.com"),
-        Utilisateur("caca", "prout", "c.proute@evs.com"),
-        Cours("Mathematique", "B1"),
-        null));
-    demandes.add(Demande(
-        2,
-        DateTime.now(),
-        "waiting",
-        Utilisateur("Khalil", "Kari", "K.Karim@odoo.com"),
-        Utilisateur("caca", "prout", "c.proute@evs.com"),
-        Cours("Arabe", "B4"),
-        null));
-    demandes.add(Demande(
-        3,
-        DateTime.now(),
-        "waiting",
-        Utilisateur("Antoine", "Bichon", "a.Bichon@evs.com"),
-        Utilisateur("caca", "prout", "c.proute@evs.com"),
-        Cours("Verdure", "B3"),
-        null));
+    demandes.add(Demande(DateTime.now(), "waiting", "a.tistaert@evs.com",
+        "c.proute@evs.com", Cours("Mathematique", "B1"), null));
+    demandes.add(Demande(DateTime.now(), "waiting", "K.Karim@odoo.com",
+        "c.proute@evs.com", Cours("Arabe", "B4"), null));
+    demandes.add(Demande(DateTime.now(), "waiting", "a.Bichon@evs.com",
+        "c.proute@evs.com", Cours("Verdure", "B3"), null));
     return Future<List<Demande>>.delayed(
         const Duration(seconds: 1), () => demandes);
   }

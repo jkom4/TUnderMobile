@@ -48,7 +48,6 @@ class ConnexionRepository implements IConnexionRepository {
     } else {
       var status = response.statusCode.toString();
       debugPrint('response : $status');
-      debugPrint('$baseUrl/Auth/token');
       return null;
     }
   }

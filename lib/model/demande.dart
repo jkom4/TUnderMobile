@@ -3,18 +3,16 @@ import 'package:tunder/model/rencontre.dart';
 import 'package:tunder/model/utilisateur.dart';
 
 class Demande {
-  late int? Id;
   String? commentaire;
   late String etat;
   late DateTime dateDemande;
-  late Utilisateur? gestionnaire;
-  late Utilisateur? demandeur;
+  late String? gestionnaire;
+  late String? demandeur;
   late Cours cours;
   Rencontre? rencontre;
 
-  Demande(int? id, DateTime date, String etat, Utilisateur? demandeur,
-      Utilisateur? gestionnaire, Cours cours, Rencontre? recontre) {
-    setId = id;
+  Demande(DateTime date, String etat, String? demandeur, String? gestionnaire,
+      Cours cours, Rencontre? recontre) {
     setDate = date;
     setEtat = etat;
     setGestionnaire = gestionnaire;
@@ -27,19 +25,23 @@ class Demande {
     setCommentaire = json['commentaire'];
     setEtat = json['etat'];
     setDate = DateTime.parse(json['dateDemande']);
-    setGestionnaire = Utilisateur.fromJson(json['gestionnaire']);
-    setDemandeur = Utilisateur.fromJson(json['gestionnaire']);
+    setGestionnaire = json['gestionnaire'];
+    setDemandeur = json['demandeur'];
     setCours = Cours.fromJson(json['cours']);
     setRencontre = Rencontre.fromJson(json[rencontre]);
   }
-
-  set setId(int? id) {
-    Id = id;
-  }
-
-  int? get getId {
-    return Id;
-  }
+  Map<String, dynamic> toJson() => {
+        'commentaire': commentaire,
+        'etat': etat,
+        'dateDemande': dateDemande,
+        'gestionnaire': gestionnaire,
+        'demandeur': demandeur,
+        'cours': {
+          'bloc': cours.bloc,
+          'nom': cours.nom,
+        },
+        'rencontre': {'date': rencontre?.date, 'addresse': rencontre?.addresse}
+      };
 
   String? get getCommentaire {
     return commentaire;
@@ -72,19 +74,19 @@ class Demande {
     return dateDemande;
   }
 
-  set setDemandeur(Utilisateur? demandeur) {
+  set setDemandeur(String? demandeur) {
     this.demandeur = demandeur;
   }
 
-  Utilisateur? get getDemandeur {
+  String? get getDemandeur {
     return demandeur;
   }
 
-  set setGestionnaire(Utilisateur? gestionnaire) {
+  set setGestionnaire(String? gestionnaire) {
     this.gestionnaire = gestionnaire;
   }
 
-  Utilisateur? get getGestionnaire {
+  String? get getGestionnaire {
     return gestionnaire;
   }
 
