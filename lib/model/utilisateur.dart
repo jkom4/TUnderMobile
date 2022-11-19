@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'utilisateur.g.dart';
+
+@JsonSerializable()
 class Utilisateur {
   late String prenom;
   late String nom;
@@ -9,11 +14,10 @@ class Utilisateur {
     setEmail = email;
   }
 
-  Utilisateur.fromJson(Map<String, dynamic> json) {
-    setNom = json['nom'];
-    setPrenom = json['prenom'];
-    setEmail = json['email'];
-  }
+  factory Utilisateur.fromJson(Map<String, dynamic> json) =>
+      _$UtilisateurFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UtilisateurToJson(this);
 
   String get getNom {
     return nom;

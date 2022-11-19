@@ -1,55 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/rencontre.dart';
-import 'package:tunder/model/utilisateur.dart';
 
+part 'demande.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Demande {
   String? commentaire;
   late String etat;
-  late DateTime dateDemande;
-  late String? gestionnaire;
-  late String? demandeur;
+  late String gestionnaire;
+  late String demandeur;
   late Cours cours;
-  Rencontre? rencontre;
+  late Rencontre rencontre;
 
-  Demande(DateTime date, String etat, String? demandeur, String? gestionnaire,
-      Cours cours, Rencontre? recontre) {
-    setDate = date;
+  Demande(String etat, String? commentaire, String? demandeur,
+      String? gestionnaire, Cours cours, Rencontre? rencontre) {
     setEtat = etat;
     setGestionnaire = gestionnaire;
     setDemandeur = demandeur;
     setCours = cours;
-    rencontre = rencontre;
+    setRencontre = rencontre;
+    setCommentaire = commentaire;
   }
 
-  Demande.fromJson(Map<String, dynamic> json) {
-    setCommentaire = json['commentaire'];
-    setEtat = json['etat'];
-    setDate = DateTime.parse(json['dateDemande']);
-    setGestionnaire = json['gestionnaire'];
-    setDemandeur = json['demandeur'];
-    setCours = Cours.fromJson(json['cours']);
-    setRencontre = Rencontre.fromJson(json[rencontre]);
-  }
-  Map<String, dynamic> toJson() => {
-        'commentaire': commentaire,
-        'etat': etat,
-        'dateDemande': dateDemande,
-        'gestionnaire': gestionnaire,
-        'demandeur': demandeur,
-        'cours': {
-          'bloc': cours.bloc,
-          'nom': cours.nom,
-        },
-        'rencontre': {'date': rencontre?.date, 'addresse': rencontre?.addresse}
-      };
+  factory Demande.fromJson(Map<String, dynamic> json) =>
+      _$DemandeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DemandeToJson(this);
 
   String? get getCommentaire {
     return commentaire;
   }
 
-  set setCommentaire(String commentaire) {
-    if (commentaire.isNotEmpty) {
+  set setCommentaire(String? commentaire) {
+    if (commentaire != null) {
       this.commentaire = commentaire;
+    } else {
+      this.commentaire = "";
     }
   }
 
@@ -66,16 +54,12 @@ class Demande {
     }
   }
 
-  set setDate(DateTime date) {
-    dateDemande = date;
-  }
-
-  DateTime get getDate {
-    return dateDemande;
-  }
-
   set setDemandeur(String? demandeur) {
-    this.demandeur = demandeur;
+    if (demandeur != null) {
+      this.demandeur = demandeur;
+    } else {
+      throw Exception('Demandeur non selectionné');
+    }
   }
 
   String? get getDemandeur {
@@ -83,7 +67,11 @@ class Demande {
   }
 
   set setGestionnaire(String? gestionnaire) {
-    this.gestionnaire = gestionnaire;
+    if (gestionnaire != null) {
+      this.gestionnaire = gestionnaire;
+    } else {
+      throw Exception('Gestionnaire non selectionné');
+    }
   }
 
   String? get getGestionnaire {
@@ -98,11 +86,16 @@ class Demande {
     return cours;
   }
 
-  set setRencontre(Rencontre rencontre) {
-    this.rencontre = rencontre;
+  set setRencontre(Rencontre? rencontre) {
+    if (rencontre == null) {
+      debugPrint("ici");
+      this.rencontre = Rencontre(null, "");
+    } else {
+      this.rencontre = rencontre;
+    }
   }
 
-  Rencontre? get getRencontre {
+  Rencontre get getRencontre {
     return rencontre;
   }
 }

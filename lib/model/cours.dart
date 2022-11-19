@@ -1,22 +1,29 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'cours.g.dart';
+
+@JsonSerializable()
 class Cours {
   late String nom;
   late String bloc;
 
-  Cours(String nom, String bloc) {
+  Cours(String? nom, String bloc) {
     setNom = nom;
     setBloc = bloc;
   }
-  Cours.fromJson(Map<String, dynamic> json) {
-    setNom = json['nom'];
-    setBloc = json['bloc'];
-  }
+
+  factory Cours.fromJson(Map<String, dynamic> json) => _$CoursFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CoursToJson(this);
 
   String get getNom {
     return nom;
   }
 
-  set setNom(String nom) {
-    if (nom.isNotEmpty) {
+  set setNom(String? nom) {
+    if (nom == null) {
+      throw Exception("Nom de cours ne peut etre nul");
+    } else {
       this.nom = nom;
     }
   }

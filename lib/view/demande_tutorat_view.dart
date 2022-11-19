@@ -34,6 +34,8 @@ class _DemandeTutoratState extends State<DemandeTutorat>
     setState(() {
       coursGivenBloc = demandePresenter.getAllClasses(blocName);
       blocSelected = blocName;
+      coursSelected = null;
+      tutorSelected = null;
     });
   }
 
@@ -42,6 +44,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
       tutorGivenCours =
           demandePresenter.getTutorForClasses(blocSelected, courseName);
       coursSelected = courseName;
+      tutorSelected = null;
     });
   }
 
@@ -80,8 +83,11 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                 ButtonTUnder(
                     width: MediaQuery.of(context).size.width * 0.8,
                     callback: () {
-                      demandePresenter.confirmForm(
-                          blocSelected, coursSelected, tutorSelected, comment);
+                      debugPrint(blocSelected);
+                      debugPrint(coursSelected);
+                      debugPrint(tutorSelected);
+                      demandePresenter.confirmForm(blocSelected, coursSelected,
+                          tutorSelected, comment, null, "");
                     },
                     child: const Text("Demander")),
               ],
@@ -89,7 +95,6 @@ class _DemandeTutoratState extends State<DemandeTutorat>
           ],
         ))),
       ),
-      //TODO: ADD APP BAR
     );
   }
 

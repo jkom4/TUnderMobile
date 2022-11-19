@@ -1,26 +1,41 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:tunder/model/demande.dart';
 
+part 'rencontre.g.dart';
+
+@JsonSerializable()
 class Rencontre {
   late DateTime date;
   late String addresse;
 
-  Rencontre(this.date, this.addresse);
-
-  Rencontre.fromJson(json) {
-    setAddresse = json["addresse"];
-    setDate = json["date"];
+  Rencontre(DateTime? date, String? addresse) {
+    setDate = date;
+    setAddresse = addresse;
   }
 
-  set setDate(DateTime date) {
-    this.date = date;
+  factory Rencontre.fromJson(Map<String, dynamic> json) =>
+      _$RencontreFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RencontreToJson(this);
+
+  set setDate(DateTime? date) {
+    if (date == null) {
+      this.date = DateTime.fromMicrosecondsSinceEpoch(0);
+    } else {
+      this.date = date;
+    }
   }
 
   DateTime get getDate {
     return date;
   }
 
-  set setAddresse(String addresse) {
-    this.addresse = addresse;
+  set setAddresse(String? addresse) {
+    if (addresse == null) {
+      this.addresse = "";
+    } else {
+      this.addresse = addresse;
+    }
   }
 
   String get getAddresse {
