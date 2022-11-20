@@ -3,12 +3,15 @@ import 'package:tunder/model/demande.dart';
 import 'package:tunder/model/rencontre.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/repository/cours_repository.dart';
+import 'package:tunder/repository/demande_repository.dart';
 import 'package:tunder/repository/i_cours_repository.dart';
 import 'package:tunder/presenter/i_demande_tutorat.dart';
+import 'package:tunder/repository/i_demande_repository.dart';
 
 class DemandePresenter {
   IdemandeTutorat tutoratView;
   late IcoursRepository coursRepository = HttpCoursRepository();
+  late IdemandeRepository demandeRepository = HttpDemandeRepository();
 
   DemandePresenter(this.tutoratView);
 
@@ -23,13 +26,13 @@ class DemandePresenter {
   }
 
   void confirmForm(String blocSelected, String? coursSelected,
-      String? tutorSelected, String? comment, DateTime? date, String? lieu) {
+      String? tutorSelected, String? comment, String? date, String? lieu) {
     try {
       Cours cours = Cours(coursSelected, blocSelected);
       Rencontre rencontre = Rencontre(date, lieu);
       Demande demandeToAdd =
           Demande("waiting", comment, "", tutorSelected, cours, rencontre);
-      coursRepository.addDemande(demandeToAdd).onError(
+      demandeRepository.addDemande(demandeToAdd).onError(
           (error, stackTrace) => tutoratView.displayError(error.toString()));
       tutoratView.displayConfirmation("Votre demande a bien été envoyée");
     } on Error catch (e) {

@@ -30,6 +30,7 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
           future: mesDemandePresenter.getMyWaitingDemande(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
+              debugPrint(snapshot.error.toString());
               return Container();
             } else if (snapshot.hasData) {
               if (snapshot.data.length == 0) {

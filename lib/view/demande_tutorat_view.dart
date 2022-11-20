@@ -87,7 +87,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                       debugPrint(coursSelected);
                       debugPrint(tutorSelected);
                       demandePresenter.confirmForm(blocSelected, coursSelected,
-                          tutorSelected, comment, null, "");
+                          tutorSelected, comment, null, null);
                     },
                     child: const Text("Demander")),
               ],

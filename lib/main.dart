@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tunder/model/demande.dart';
 import 'package:tunder/view/demande_tutorat_view.dart';
-import 'package:tunder/view/my_homePage.dart';
+import 'package:tunder/view/mes_demandes_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,12 +30,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'TUnder',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      home: const DemandeTutorat(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'TUnder',
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: const MesDemandes());
   }
 }

@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tunder/model/demande.dart';
 
@@ -8,7 +9,7 @@ class Rencontre {
   late DateTime date;
   late String addresse;
 
-  Rencontre(DateTime? date, String? addresse) {
+  Rencontre(String? date, String? addresse) {
     setDate = date;
     setAddresse = addresse;
   }
@@ -18,11 +19,11 @@ class Rencontre {
 
   Map<String, dynamic> toJson() => _$RencontreToJson(this);
 
-  set setDate(DateTime? date) {
+  set setDate(String? date) {
     if (date == null) {
       this.date = DateTime.fromMicrosecondsSinceEpoch(0);
     } else {
-      this.date = date;
+      this.date = DateFormat("dd/MM/yyyy", "en_US").parse(date);
     }
   }
 
