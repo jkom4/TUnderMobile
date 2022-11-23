@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tunder/view/mes_demandes_view.dart';
+import 'package:tunder/view/my_homePage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
