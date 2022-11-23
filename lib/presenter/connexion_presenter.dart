@@ -29,6 +29,7 @@ class ConnexionPresenter {
   logout() {
     _repository.logout();
     userSession?.clear();
+    _view.refresh();
   }
 
   Connect(String email, String password) {
