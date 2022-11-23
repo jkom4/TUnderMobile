@@ -1,14 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
+
 import 'package:flutter/material.dart';
+import 'package:tunder/Model/userSession.dart';
+import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/presenter/connexion_presenter.dart';
 import '../components/button_tunder.dart';
+import '../components/snackbar.dart';
 import '../presenter/i_connexion.dart';
+import 'my_homePage.dart';
 
-class ProfilPage extends StatelessWidget implements IConnexionView {
-  late ConnexionPresenter _presenter = new ConnexionPresenter(this);
+class ProfilPage extends StatefulWidget {
+
+  @override
+  State<ProfilPage> createState() => _ProfilPageState();
+}
+
+class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
+  late ConnexionPresenter _presenter = ConnexionPresenter(this);
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = _presenter.currentUser();
+    //final user = new Utilisateur("prenom", "nom", "email");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profil"),
@@ -19,21 +31,23 @@ class ProfilPage extends StatelessWidget implements IConnexionView {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 32),
-            CircleAvatar(
-                radius: 40, backgroundImage: NetworkImage(user.photoURL!)),
+
             SizedBox(height: 8),
             Text(
-              'Nom : ' + user.displayName!,
+              'Nom : ' + user!.getNom,
               style: TextStyle(color: Colors.grey, fontSize: 16),
             ),
             SizedBox(height: 8),
             Text(
-              'Email : ' + user.email!,
+              'Email : ' + user!.getEmail,
               style: TextStyle(color: Colors.grey, fontSize: 16),
             ),
             SizedBox(height: 8),
             ButtonTUnder(
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.8,
               child: const Text("Se deconnecter"),
               callback: () {
                 _presenter.logout();
@@ -47,11 +61,16 @@ class ProfilPage extends StatelessWidget implements IConnexionView {
 
   @override
   void showMessage(String message) {
-    // TODO: implement showMessage
+    SnackbarCustom.showSnackBar(context, message);
   }
 
+
   @override
-  void showProfil(String url, String name, String email) {
-    // TODO: implement showProfil
+  void refresh() {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => MyHomePage()));
   }
 }
+ 

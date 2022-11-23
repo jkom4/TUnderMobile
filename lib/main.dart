@@ -2,6 +2,12 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tunder/view/connected_home_page_view.dart';
+import 'package:tunder/view/connexion_view.dart';
+import 'package:tunder/view/my_homePage.dart';
+
+
 import 'package:tunder/model/demande.dart';
 import 'package:tunder/view/demande_tutorat_view.dart';
 import 'package:tunder/view/mes_demandes_view.dart';
@@ -13,7 +19,6 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -30,11 +35,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'TUnder',
-        theme: ThemeData(
-          primarySwatch: Colors.grey,
-        ),
-        home: const MesDemandes());
+      debugShowCheckedModeBanner: false,
+      title: 'TUnder',
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+      ),
+      home:  MyHomePage(),
+
+    );
   }
+
 }
+
+
+
+
+

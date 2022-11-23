@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tunder/components/snackbar.dart';
 import 'package:tunder/presenter/i_connexion.dart';
+import 'package:tunder/view/my_homePage.dart';
 import '../components/button_tunder.dart';
 import '../components/social_icon.dart';
 import '../components/text_field_container.dart';
@@ -98,7 +99,6 @@ class _LoginPageState extends State<LoginPage> implements IConnexionView {
                   src: "assets/icons/google.svg",
                   press: () {
                     _presenter.googleConnect();
-
                     //ShowMessage("google");
                   },
                 ),
@@ -128,8 +128,13 @@ class _LoginPageState extends State<LoginPage> implements IConnexionView {
     SnackbarCustom.showSnackBar(context, message);
   }
 
+
+
   @override
-  void showProfil(String url, String name, String email) {
-    // TODO: implement showProfil
+  void refresh() {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => MyHomePage()));
   }
 }

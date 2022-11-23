@@ -5,7 +5,6 @@ import 'package:http/http.dart';
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/demande.dart';
 import 'package:tunder/model/environment.dart';
-import 'package:tunder/model/token.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/repository/i_cours_repository.dart';
 import 'package:http/http.dart' as http;
