@@ -43,7 +43,7 @@ class UserSessionProvider {
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     // Print the payload
     print( "payload "+ payload.toString());
-    return new Utilisateur(payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'], payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'], payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']);
+    return new Utilisateur(payload['Name'], payload['Name'], payload['Email'],payload['Roles']);
   }
 
 }

@@ -20,7 +20,7 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
   @override
   Widget build(BuildContext context) {
     final user = _presenter.currentUser();
-    //final user = new Utilisateur("prenom", "nom", "email");
+    //final user = new Utilisateur("prenom", "nom", "email","role");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profil"),
@@ -40,6 +40,12 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
             SizedBox(height: 8),
             Text(
               'Email : ' + user!.getEmail,
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+            ),
+            SizedBox(height: 8),
+            SizedBox(height: 8),
+            Text(
+              'Role : ' + user!.geRole,
               style: TextStyle(color: Colors.grey, fontSize: 16),
             ),
             SizedBox(height: 8),

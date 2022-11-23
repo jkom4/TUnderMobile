@@ -29,7 +29,6 @@ class ConnexionRepository implements IConnexionRepository {
     FirebaseAuth.instance.signInWithCredential(credential);
     //await fecthJwtForSigninGoogle(googleUser).then((value) => jwtToken = value);
 
-
     // Once signed in, return the UserCredential
     //return await FirebaseAuth.instance.signInWithCredential(credential);
     return await fecthJwtForSigninGoogle(googleUser);
@@ -58,8 +57,8 @@ class ConnexionRepository implements IConnexionRepository {
   @override
   Future fecthJwtForSigninGoogle(GoogleSignInAccount? user) async {
     var data = jsonEncode(
-       // {"Username": currentUser?.displayName, "Password": currentUser?.email});
-        {"Username": "Tunder", "Password": "tunder@tunder.com"});
+       {"Username": user?.displayName, "Email": user?.email});
+        //{"Username": "Tunder", "Password": "tunder@tunder.com"});
     var headers = {"Content-Type": "application/json"};
     final response = await http.post(Uri.parse('${apiUrl}/Auth/signin-google'),
         headers: headers, body: data);

@@ -42,13 +42,12 @@ class ConnexionPresenter {
             })
         .catchError((onError) {
       print("error login : " + onError.toString());
+      _view.showMessage("Error login : " + onError.toString());
     });
   }
 
   Utilisateur currentUser() {
-    print(userSession?.currentUser().toJson());
-    return userSession?.currentUser() == null
-        ? new Utilisateur("prenom", "nom", "email")
-        : userSession!.currentUser();
+    //print(userSession?.currentUser().toJson());
+    return userSession!.currentUser();
   }
 }
