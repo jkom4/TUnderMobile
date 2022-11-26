@@ -21,30 +21,35 @@ class HttpDemandeRepository implements IdemandeRepository {
   }
 
   @override
-  Future<List<Demande>> getMyWaitingDemande() async {
+  Future<List<Demande>?> getMyWaitingDemande() async {
+      var jwt;
+       await UserSessionProvider.getInstance!.get(key: "jwtToken").then((value) async {
+         jwt = value;
+       });
 
-    await UserSessionProvider.getInstance!.get(key: "jwtToken").then((value) async {
-
-      var json = jsonDecode(value!);
+      var json = jsonDecode(jwt!);
       var token = json['tokenString'];
       Response response = await http.get(Uri.parse("$apiUrl/Tutorat"), headers: {
         "Content-Type": "application/json",
         "Authorization": "bearer $token"
       });
-      print("200 token" + token.toString());
+
       if (response.statusCode == 200) {
         Iterable r = jsonDecode(response.body);
 
-        List<Demande> demandes = await (json.decode(response.body) as List)
+
+        List<Demande> demandes = await (jsonDecode(response.body) as List)
             .map((i) => Demande.fromJson(i))
             .toList();
-        return demandes;
+        print("200 demande" + demandes.first.etat);
+        return  demandes;
+
       } else {
         String mess = response.statusCode.toString();
         throw Exception('Failed to fetch waiting demande {$mess}');
+
       }
-    });
-    return List.empty();
+
 
   }
 

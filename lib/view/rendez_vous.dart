@@ -111,7 +111,7 @@ class _RendezVousState extends State<RendezVousPage> {
                 child: const Text("Envoyer"),
                 callback: (){
                   String dateHeure = dateController.text + " " + heureController.text;
-                  Navigator.pop(context, Rencontre(dateHeure, lieuController.text) );
+                  Navigator.pop(context, {"date"  : dateHeure, "lieu" :  lieuController.text} );
                 },
               ),
             ]),

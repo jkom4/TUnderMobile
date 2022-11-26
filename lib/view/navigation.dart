@@ -6,16 +6,16 @@ import 'package:location/location.dart';
 import 'package:tunder/components/constants.dart';
 
 class NavigationPage extends StatefulWidget {
-  const NavigationPage({super.key, required this.title});
+  const NavigationPage({super.key, required this.title, required this.lieu});
 
-  final String title;
+  final String title, lieu ;
 
   @override
   State<NavigationPage> createState() => _NavigationPageState();
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  static const LatLng sourceLocation = LatLng(37.33500926, -122.03272188);
+
   static const LatLng destination = LatLng(37.33429383, -122.06600055);
 
   List<LatLng> polylineCoordinates = [];
@@ -23,7 +23,6 @@ class _NavigationPageState extends State<NavigationPage> {
 
   void getCurrentLocation(){
     Location location = Location();
-
     location.getLocation().then((location){
       currentLocation = location;
     } );
@@ -41,7 +40,7 @@ class _NavigationPageState extends State<NavigationPage> {
     
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
         google_api_key,
-        PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+        PointLatLng(currentLocation!.latitude!, currentLocation!.longitude!),
         PointLatLng(destination.latitude, destination.longitude)
     );
     if(result.points.isNotEmpty){
@@ -88,7 +87,7 @@ class _NavigationPageState extends State<NavigationPage> {
         ),
         Marker(
           markerId: MarkerId("source"),
-          position: sourceLocation,
+          position: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
         ),
         Marker(
           markerId: MarkerId("destination"),

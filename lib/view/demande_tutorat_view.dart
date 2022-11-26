@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tunder/components/blocs_dropdown.dart';
 import 'package:tunder/components/button_tunder.dart';
@@ -21,7 +23,8 @@ class DemandeTutorat extends StatefulWidget {
 class _DemandeTutoratState extends State<DemandeTutorat>
     implements IdemandeTutorat {
 
-
+  String? date;
+  String? lieu;
   late DemandePresenter demandePresenter;
   late Future<List<Cours>> coursGivenBloc;
   Future<List<Utilisateur>>? tutorGivenCours;
@@ -87,7 +90,15 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                 SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
-                    navigateAndGetRencontre(context);
+                    navigateAndGetRencontre(context).then((value) {
+                     var json =  jsonDecode(value);
+                     date = json['date'];
+                     lieu = json['lieu'];
+
+                    }
+
+
+                    );
                   },
                   child: const Text('Fixer un rendez-vous'),
 
@@ -99,8 +110,10 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                       debugPrint(blocSelected);
                       debugPrint(coursSelected);
                       debugPrint(tutorSelected);
+                      debugPrint(date);
+                      debugPrint(lieu);
                       demandePresenter.confirmForm(blocSelected, coursSelected,
-                          tutorSelected, comment, null, null);
+                          tutorSelected, comment, date, lieu);
                     },
                     child: const Text("Demander")),
               ],
@@ -112,7 +125,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
     );
   }
 
-  Future<void> navigateAndGetRencontre(BuildContext context) async {
+  Future<String> navigateAndGetRencontre(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
     final result = await Navigator.push(
@@ -122,13 +135,14 @@ class _DemandeTutoratState extends State<DemandeTutorat>
 
     // When a BuildContext is used from a StatefulWidget, the mounted property
     // must be checked after an asynchronous gap.
-    if (!mounted) return;
+    if (!mounted) return "" ;
 
     // After the Selection Screen returns a result, hide any previous snackbars
     // and show the new result.
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text('$result')));
+    return result;
   }
 
   @override
