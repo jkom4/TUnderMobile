@@ -30,6 +30,7 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
           future: mesDemandePresenter.getMyWaitingDemande(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
+              //displayError(snapshot.error.toString());
               debugPrint(snapshot.error.toString());
               return Container();
             } else if (snapshot.hasData) {
@@ -60,5 +61,14 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
         )
       ]),
     );
+  }
+
+  @override
+  void displayError(String errorMessage) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(errorMessage),
+      backgroundColor: Colors.red,
+      elevation: 30,
+    ));
   }
 }

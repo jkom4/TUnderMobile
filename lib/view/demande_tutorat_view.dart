@@ -9,6 +9,7 @@ import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/presenter/i_demande_tutorat.dart';
 import 'package:tunder/components/title_page.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
+import 'package:tunder/view/rendez_vous.dart';
 
 class DemandeTutorat extends StatefulWidget {
   const DemandeTutorat({Key? key}) : super(key: key);
@@ -19,6 +20,8 @@ class DemandeTutorat extends StatefulWidget {
 
 class _DemandeTutoratState extends State<DemandeTutorat>
     implements IdemandeTutorat {
+
+
   late DemandePresenter demandePresenter;
   late Future<List<Cours>> coursGivenBloc;
   Future<List<Utilisateur>>? tutorGivenCours;
@@ -73,6 +76,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
             coursDropdown(coursGivenBloc, _updateTutorGivenCoursState),
             tutorDropdown(tutorGivenCours, _updateSelectedTutor),
             commentText(_updateComment),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -80,6 +84,15 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                   width: 0,
                   height: 10,
                 ),
+                SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    navigateAndGetRencontre(context);
+                  },
+                  child: const Text('Fixer un rendez-vous'),
+
+                ),
+                SizedBox(height: 8),
                 ButtonTUnder(
                     width: MediaQuery.of(context).size.width * 0.8,
                     callback: () {
@@ -93,9 +106,29 @@ class _DemandeTutoratState extends State<DemandeTutorat>
               ],
             )
           ],
+
         ))),
       ),
     );
+  }
+
+  Future<void> navigateAndGetRencontre(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const RendezVousPage()),
+    );
+
+    // When a BuildContext is used from a StatefulWidget, the mounted property
+    // must be checked after an asynchronous gap.
+    if (!mounted) return;
+
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('$result')));
   }
 
   @override

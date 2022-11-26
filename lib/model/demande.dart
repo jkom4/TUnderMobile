@@ -70,7 +70,7 @@ class Demande {
     if (gestionnaire != null) {
       this.gestionnaire = gestionnaire;
     } else {
-      throw Exception('Gestionnaire non selectionné');
+        throw Exception('Gestionnaire non selectionné');
     }
   }
 

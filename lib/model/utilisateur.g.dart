@@ -10,7 +10,6 @@ Utilisateur _$UtilisateurFromJson(Map<String, dynamic> json) => Utilisateur(
       json['prenom'] as String,
       json['nom'] as String,
       json['email'] as String,
-      json['role'] as String,
 
     );
 

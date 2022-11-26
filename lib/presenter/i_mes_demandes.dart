@@ -1,1 +1,3 @@
-abstract class ImesDemandes {}
+abstract class ImesDemandes {
+  void displayError(String errorMessage);
+}
