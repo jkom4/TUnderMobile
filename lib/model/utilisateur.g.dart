@@ -10,7 +10,6 @@ Utilisateur _$UtilisateurFromJson(Map<String, dynamic> json) => Utilisateur(
       json['prenom'] as String,
       json['nom'] as String,
       json['email'] as String,
-      json['role'] as String,
     );
 
 Map<String, dynamic> _$UtilisateurToJson(Utilisateur instance) =>
@@ -18,5 +17,4 @@ Map<String, dynamic> _$UtilisateurToJson(Utilisateur instance) =>
       'prenom': instance.prenom,
       'nom': instance.nom,
       'email': instance.email,
-      'role': instance.role,
     };
