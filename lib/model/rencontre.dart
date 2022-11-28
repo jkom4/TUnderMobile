@@ -23,7 +23,7 @@ class Rencontre {
     if (date == null) {
       this.date = DateTime.fromMicrosecondsSinceEpoch(0);
     } else {
-      this.date = DateFormat("dd/MM/yyyy", "en_US").parse(date);
+      this.date = DateFormat("dd-MM-yyyy HH:mm", "en_US").parse(date);
     }
   }
 

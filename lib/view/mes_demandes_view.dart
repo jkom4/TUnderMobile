@@ -14,6 +14,7 @@ class MesDemandes extends StatefulWidget {
 
 class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
   late MesDemandesPresenter mesDemandePresenter;
+
   _MesDemandesState() {
     mesDemandePresenter = MesDemandesPresenter(this);
   }
@@ -30,12 +31,13 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
           future: mesDemandePresenter.getMyWaitingDemande(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
-              debugPrint(snapshot.error.toString());
+              //displayError(snapshot.error.toString());
+              debugPrint("error View " + snapshot.error.toString());
               return Container();
             } else if (snapshot.hasData) {
               if (snapshot.data.length == 0) {
                 return const Center(
-                  child: Text('Auncun demande en attente!'),
+                  child: Text('Aucune demande en attente!'),
                 );
               }
               return ListView.builder(
@@ -47,9 +49,12 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                       children: [
                         SizedBox(height: 10),
                         DemandeItem(
-                            nom: "demande.getDemandeur!.getNom.toString()",
-                            prenom: "demande.getDemandeur!.getPrenom.toString()",
-                            cours: demande.cours.getNom)
+                          nom: demande.getDemandeur.toString(),
+                          prenom: demande.getDemandeur.toString(),
+                          cours: demande.cours.getNom,
+                          date: demande.getRencontre.getDate.toString(),
+                          lieu: demande.getRencontre.getAddresse,
+                        ),
                       ],
                     );
                   });
@@ -60,5 +65,14 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
         )
       ]),
     );
+  }
+
+  @override
+  void displayError(String errorMessage) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(errorMessage),
+      backgroundColor: Colors.red,
+      elevation: 30,
+    ));
   }
 }

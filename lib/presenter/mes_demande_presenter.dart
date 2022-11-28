@@ -12,7 +12,9 @@ class MesDemandesPresenter {
 
   MesDemandesPresenter(this.mesDemandeView);
 
-  Future<List<Demande>> getMyWaitingDemande() {
-    return demandeRepository.getMyWaitingDemande();
+  Future<List<Demande>?> getMyWaitingDemande() async {
+     return await demandeRepository.getMyWaitingDemande();
+
+
   }
 }

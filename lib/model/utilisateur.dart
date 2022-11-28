@@ -7,13 +7,11 @@ class Utilisateur {
   late String prenom;
   late String nom;
   late String email;
-  late String role;
 
-  Utilisateur(String prenom, String nom, String email,String role) {
+  Utilisateur(String prenom, String nom, String email) {
     setNom = nom;
     setPrenom = prenom;
     setEmail = email;
-    setRole = role;
   }
 
   factory Utilisateur.fromJson(Map<String, dynamic> json) =>
@@ -50,13 +48,7 @@ class Utilisateur {
       this.email = email;
     }
   }
-  String get geRole {
-    return role;
-  }
 
-  set setRole(String role) {
-    if (role.isNotEmpty) {
-      this.role = role;
-    }
-  }
+
+
 }

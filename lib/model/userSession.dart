@@ -34,16 +34,15 @@ class UserSessionProvider {
     await _flutterSecureStorage.delete(key: "jwtToken");
   }
 
-  Utilisateur currentUser() {
 
-    print("jwt" + jwtToken.toString());
+  Utilisateur currentUser() {
     var json = jsonDecode(jwtToken);
     var token = json['tokenString'];
     // To decode the token
     Map<String, dynamic> payload = Jwt.parseJwt(token);
     // Print the payload
     print( "payload "+ payload.toString());
-    return new Utilisateur(payload['Name'], payload['Name'], payload['Email'],payload['Roles']);
+    return new Utilisateur(payload['Name'], payload['Name'], payload['Email']);
   }
 
 }
