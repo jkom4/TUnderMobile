@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:tunder/view/connected_home_page_view.dart';
+import 'package:tunder/view/demande_tutorat_view.dart';
 import 'package:tunder/view/mes_demandes_view.dart';
 import 'package:tunder/view/my_homePage.dart';
 
@@ -34,8 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home:  MyHomePage(),
-
+      home: MyHomePage(),
     );
   }
 }
