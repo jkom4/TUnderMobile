@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/demande.dart';
@@ -39,6 +40,18 @@ class HttpCoursRepository implements IcoursRepository {
           .toList();
     } else {
       throw Exception('Failed to fetch tutor');
+    }
+  }
+
+  @override
+  Future<List<Cours>> getAllCours() async {
+    Response response = await http.get(Uri.parse("$apiUrl/Cours/cours"));
+    if (response.statusCode == 200) {
+      return (json.decode(response.body) as List)
+          .map((e) => Cours.fromJson(e))
+          .toList();
+    } else {
+      throw Exception('Failed to fetch cours');
     }
   }
 }

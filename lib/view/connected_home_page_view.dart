@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tunder/components/message_loby.dart';
 import 'package:tunder/view/demande_tutorat_view.dart';
 import 'package:tunder/view/mes_demandes_view.dart';
 import 'package:tunder/view/messages_view.dart';
@@ -13,7 +14,12 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   int indexPage = 0;
-  final screens = [MesDemandes(), DemandeTutorat(), Messaging(), ProfilPage()];
+  final screens = [
+    MesDemandes(),
+    DemandeTutorat(),
+    Messaging(),
+    ProfilPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {

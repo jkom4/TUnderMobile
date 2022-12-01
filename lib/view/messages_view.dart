@@ -1,6 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tunder/components/messages.dart';
+import 'package:tunder/components/message_loby.dart';
+import 'package:tunder/components/title_page.dart';
+import 'package:tunder/model/cours.dart';
+import 'package:tunder/presenter/i_message.dart';
+import 'package:tunder/presenter/message_presenter.dart';
 
 class Messaging extends StatefulWidget {
   const Messaging({super.key});
@@ -9,67 +12,61 @@ class Messaging extends StatefulWidget {
   State<Messaging> createState() => _MessagingState();
 }
 
-class _MessagingState extends State<Messaging> {
-  final String email = "E190997@protonmail.com";
-  final fs = FirebaseFirestore.instance;
-  final TextEditingController message = TextEditingController();
+class _MessagingState extends State<Messaging> implements IMessagesView {
+  late MessagePresenter messagePresenter;
+
+  _MessagingState() {
+    messagePresenter = MessagePresenter(this);
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<Cours> coursList = List.empty(growable: true);
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .85,
-            child: Messages(email: email),
+          const SizedBox(
+            height: 40,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: message,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 210, 206, 206),
-                    hintText: 'message',
-                    contentPadding: const EdgeInsets.only(
-                        left: 14.0, bottom: 8.0, top: 8.0),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onSaved: (value) {
-                    message.text = value!;
-                  },
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  if (message.text.isNotEmpty) {
-                    fs.collection('messages').doc().set({
-                      'text': message.text.trim(),
-                      'createdAt': DateTime.now(),
-                      'email': email,
-                    });
-
-                    message.clear();
-                  }
-                },
-                icon: const Icon(Icons.send),
-              ),
-            ],
-          )
+          const TitlePage(title: "Messages"),
+          Expanded(
+            child: FutureBuilder(
+              future: messagePresenter.getAllCours(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.hasError) {
+                  debugPrint(snapshot.error.toString());
+                  return Container();
+                } else if (snapshot.hasData) {
+                  coursList.clear();
+                  snapshot.data?.forEach((element) {
+                    coursList.add(element);
+                  });
+                  return ListView.builder(
+                    itemCount: coursList.length,
+                    itemBuilder: (context, index) {
+                      final cours = coursList[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text('${cours.bloc} ${cours.getNom}'),
+                          trailing: const Icon(Icons.message_rounded),
+                          onTap: () => {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => MessageLoby(
+                                    usrEmail: messagePresenter.getUsrMail(),
+                                    coursName: cours.getNom)))
+                          },
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
+            ),
+          ),
         ],
-      )),
+      ),
     );
   }
 }

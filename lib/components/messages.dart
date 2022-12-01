@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 
 class Messages extends StatefulWidget {
   final String email;
-  const Messages({super.key, required this.email});
+  final String coursName;
+  const Messages({super.key, required this.coursName, required this.email});
 
   @override
   State<Messages> createState() => _MessagesState();
 }
 
 class _MessagesState extends State<Messages> {
-  final Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
-      .collection('messages')
+  late final Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
+      .collection(widget.coursName)
       .orderBy('createdAt')
       .limit(1000)
       .snapshots();
