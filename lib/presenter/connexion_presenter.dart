@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/presenter/i_connexion.dart';
@@ -49,5 +50,21 @@ class ConnexionPresenter {
   Utilisateur currentUser() {
     //print(userSession?.currentUser().toJson());
     return userSession!.currentUser();
+  }
+
+  Future getHoraireLink() {
+    return _repository.getUsrLink();
+  }
+
+  void updateLink(String link) {
+    if (link.isEmpty) {
+      _view.showMessage("Erreur : Lien vide ou nul");
+    } else {
+      var parsedUri = Uri.encodeComponent(link);
+      _repository
+          .postUsrLink(parsedUri)
+          .then((value) => _view.showMessage('Lien mis à jour!'))
+          .onError((error, stackTrace) => _view.showMessage(error.toString()));
+    }
   }
 }

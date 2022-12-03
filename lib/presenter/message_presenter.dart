@@ -18,6 +18,11 @@ class MessagePresenter {
   }
 
   String getUsrMail() {
-    return UserSessionProvider.getInstance!.currentUser().email;
+    if (UserSessionProvider.getInstance != null) {
+      return UserSessionProvider.getInstance!.currentUser().email;
+    } else {
+      _view.displayError("UserSession Invalide");
+      return "";
+    }
   }
 }

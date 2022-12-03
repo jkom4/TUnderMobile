@@ -22,7 +22,6 @@ class DemandeTutorat extends StatefulWidget {
 
 class _DemandeTutoratState extends State<DemandeTutorat>
     implements IdemandeTutorat {
-
   String? date;
   String? lieu;
   late DemandePresenter demandePresenter;
@@ -79,7 +78,6 @@ class _DemandeTutoratState extends State<DemandeTutorat>
             coursDropdown(coursGivenBloc, _updateTutorGivenCoursState),
             tutorDropdown(tutorGivenCours, _updateSelectedTutor),
             commentText(_updateComment),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -91,21 +89,18 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                 ElevatedButton(
                   onPressed: () {
                     navigateAndGetRencontre(context).then((value) {
-                     var json =  jsonDecode(value);
-                     date = json['date'];
-                     lieu = json['lieu'];
-
-                    }
-
-
-                    );
+                      var json = jsonDecode(value);
+                      date = json['date'];
+                      lieu = json['lieu'];
+                    });
                   },
                   child: const Text('Fixer un rendez-vous'),
-
                 ),
                 SizedBox(height: 8),
                 ButtonTUnder(
                     width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.width * 0.15,
+                    color: Colors.black,
                     callback: () {
                       debugPrint(blocSelected);
                       debugPrint(coursSelected);
@@ -119,7 +114,6 @@ class _DemandeTutoratState extends State<DemandeTutorat>
               ],
             )
           ],
-
         ))),
       ),
     );
@@ -135,7 +129,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
 
     // When a BuildContext is used from a StatefulWidget, the mounted property
     // must be checked after an asynchronous gap.
-    if (!mounted) return "" ;
+    if (!mounted) return "";
 
     // After the Selection Screen returns a result, hide any previous snackbars
     // and show the new result.

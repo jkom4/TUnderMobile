@@ -64,6 +64,8 @@ class _LoginPageState extends State<LoginPage> implements IConnexionView {
             )),
             ButtonTUnder(
               width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * .08,
+              color: Colors.black,
               child: const Text("Connexion"),
               callback: () {
                 _presenter.Connect(
@@ -128,13 +130,9 @@ class _LoginPageState extends State<LoginPage> implements IConnexionView {
     SnackbarCustom.showSnackBar(context, message);
   }
 
-
-
   @override
   void refresh() {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => MyHomePage()));
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => MyHomePage()));
   }
 }

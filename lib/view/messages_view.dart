@@ -60,7 +60,7 @@ class _MessagingState extends State<Messaging> implements IMessagesView {
                     },
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return const Center(child: CircularProgressIndicator());
                 }
               },
             ),
@@ -68,5 +68,14 @@ class _MessagingState extends State<Messaging> implements IMessagesView {
         ],
       ),
     );
+  }
+
+  @override
+  void displayError(String errorMessage) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(errorMessage),
+      backgroundColor: Colors.red,
+      elevation: 30,
+    ));
   }
 }

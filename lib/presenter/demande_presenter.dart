@@ -32,9 +32,12 @@ class DemandePresenter {
       Rencontre rencontre = Rencontre(date, lieu);
       Demande demandeToAdd =
           Demande("waiting", comment, "", tutorSelected, cours, rencontre);
-      demandeRepository.addDemande(demandeToAdd).onError(
-          (error, stackTrace) => tutoratView.displayError(error.toString()));
-      tutoratView.displayConfirmation("Votre demande a bien été envoyée");
+      demandeRepository
+          .addDemande(demandeToAdd)
+          .then((value) => tutoratView
+              .displayConfirmation("Votre demande a bien été envoyée"))
+          .onError((error, stackTrace) =>
+              tutoratView.displayError(error.toString()));
     } on Error catch (e) {
       tutoratView.displayError(e.toString());
     }

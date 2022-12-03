@@ -1,3 +1,3 @@
-abstract class IMessagesView {
+abstract class IHoraire {
   void displayError(String errorMessage);
 }
