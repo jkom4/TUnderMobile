@@ -6,4 +6,5 @@ abstract class IcoursRepository {
   Future<List<Cours>> getCoursFromBloc({required String blocName});
   Future<List<Utilisateur>> getTuteursForCours(
       {required String blocName, required String coursName});
+  Future<List<Cours>> getAllCours();
 }

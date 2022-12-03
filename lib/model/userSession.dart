@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -44,8 +42,6 @@ class UserSessionProvider {
     var token = json['tokenString'];
     // To decode the token
     Map<String, dynamic> payload = Jwt.parseJwt(token);
-    // Print the payload
-    print( "payload "+ payload.toString());
     return new Utilisateur(payload['Name'], payload['Name'], payload['Email']);
   }
 

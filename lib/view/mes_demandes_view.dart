@@ -49,7 +49,7 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                     Demande demande = snapshot.data[index];
                     return Column(
                       children: [
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         DemandeItem(
                           id : demande.id,
                           nom: demande.getDemandeur.toString(),

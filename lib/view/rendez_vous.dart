@@ -17,7 +17,6 @@ class RendezVousPage extends StatefulWidget {
 }
 
 class _RendezVousState extends State<RendezVousPage> {
-
   TextEditingController dateController = TextEditingController();
   TextEditingController heureController = TextEditingController();
   TextEditingController lieuController = TextEditingController();

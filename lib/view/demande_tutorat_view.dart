@@ -79,7 +79,6 @@ class _DemandeTutoratState extends State<DemandeTutorat>
             coursDropdown(coursGivenBloc, _updateTutorGivenCoursState),
             tutorDropdown(tutorGivenCours, _updateSelectedTutor),
             commentText(_updateComment),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -95,15 +94,10 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                      var json =  jsonDecode(value);
                      date = json['date'];
                      lieu = json['lieu'];
-                     print(date! + " et "+ lieu!);
-
                     }
-
-
                     );
                   },
                   child: const Text('Fixer un rendez-vous'),
-
                 ),
                 SizedBox(height: 8),
                 ButtonTUnder(
@@ -121,7 +115,6 @@ class _DemandeTutoratState extends State<DemandeTutorat>
               ],
             )
           ],
-
         ))),
       ),
     );
