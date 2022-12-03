@@ -9,7 +9,6 @@ import 'package:tunder/components/tutor_dropdown.dart';
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/presenter/i_demande_tutorat.dart';
-import 'package:tunder/components/title_page.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
 import 'package:tunder/view/rendez_vous.dart';
 
@@ -66,15 +65,16 @@ class _DemandeTutoratState extends State<DemandeTutorat>
 
   @override
   Widget build(BuildContext context) {
-    const pageTitle = "Demande de tutorat";
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Demande de tutorat"),
+      ),
       body: Container(
         margin: const EdgeInsets.all(40),
         child: Form(
             child: SingleChildScrollView(
                 child: Column(
           children: <Widget>[
-            const TitlePage(title: pageTitle),
             blocsDropdown(_updateCoursGivenBlocState),
             coursDropdown(coursGivenBloc, _updateTutorGivenCoursState),
             tutorDropdown(tutorGivenCours, _updateSelectedTutor),
@@ -91,9 +91,11 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                 ElevatedButton(
                   onPressed: () {
                     navigateAndGetRencontre(context).then((value) {
+                      print(value);
                      var json =  jsonDecode(value);
                      date = json['date'];
                      lieu = json['lieu'];
+                     print(date! + " et "+ lieu!);
 
                     }
 

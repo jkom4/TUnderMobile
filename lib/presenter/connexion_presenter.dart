@@ -20,10 +20,13 @@ class ConnexionPresenter {
   googleConnect() {
     _repository
         .signInWithGoogle()
-        .then((value) =>
-            {userSession?.set(key: "jwtToken", value: value), _view.refresh()})
-        .catchError((onError) =>
-            _view.showMessage("Erreur Oauth:" + onError.toString()));
+        .then((value) {
+
+      userSession?.set(key: "jwtToken", value: value);
+      _view.refresh();
+    })
+        .catchError((onError) =>print(onError.toString()));
+        //_view.showMessage("Erreur Oauth:" + onError.toString()));
   }
 
   logout() {
@@ -35,11 +38,12 @@ class ConnexionPresenter {
   Connect(String email, String password) {
     _repository
         .fetchLogin(email, password)
-        .then((value) => {
-              print(value),
-              userSession?.set(key: "jwtToken", value: value),
-              _view.refresh(),
-            })
+        .then((value) =>
+    {
+      print(value),
+      userSession?.set(key: "jwtToken", value: value),
+      _view.refresh(),
+    })
         .catchError((onError) {
       print("error login : " + onError.toString());
       _view.showMessage("Error login : " + onError.toString());
@@ -48,6 +52,6 @@ class ConnexionPresenter {
 
   Utilisateur currentUser() {
     //print(userSession?.currentUser().toJson());
-    return userSession!.currentUser();
+    return userSession!.currentUser() ;
   }
 }

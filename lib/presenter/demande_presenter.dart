@@ -31,7 +31,7 @@ class DemandePresenter {
       Cours cours = Cours(coursSelected, blocSelected);
       Rencontre rencontre = Rencontre(date, lieu);
       Demande demandeToAdd =
-          Demande("waiting", comment, "", tutorSelected, cours, rencontre);
+          Demande(0,"waiting", comment, "", tutorSelected, cours, rencontre);
       demandeRepository.addDemande(demandeToAdd).onError(
           (error, stackTrace) => tutoratView.displayError(error.toString()));
       tutoratView.displayConfirmation("Votre demande a bien été envoyée");

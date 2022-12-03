@@ -7,6 +7,7 @@ part 'demande.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Demande {
+  late int  id;
   String? commentaire;
   late String etat;
   late String gestionnaire;
@@ -14,8 +15,9 @@ class Demande {
   late Cours cours;
   late Rencontre rencontre;
 
-  Demande(String etat, String? commentaire, String? demandeur,
+  Demande(int id, String etat, String? commentaire, String? demandeur,
       String? gestionnaire, Cours cours, Rencontre? rencontre) {
+    setId = id;
     setEtat = etat;
     setGestionnaire = gestionnaire;
     setDemandeur = demandeur;
@@ -28,6 +30,18 @@ class Demande {
       _$DemandeFromJson(json);
 
   Map<String, dynamic> toJson() => _$DemandeToJson(this);
+
+  int get getId {
+    return id;
+  }
+
+  set setId(int id) {
+    if (id > 0 ) {
+      this.id = id;
+    } else {
+      this.id = 0;
+    }
+  }
 
   String? get getCommentaire {
     return commentaire;

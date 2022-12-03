@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -43,12 +45,12 @@ class _RendezVousState extends State<RendezVousPage> {
                       DateTime? pickedDate = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(), //get today's date
-                          firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                          firstDate:DateTime.now(), //DateTime.now() - not to allow to choose before today.
                           lastDate: DateTime(2101),
 
                       );
 
-                      dateController.text = DateFormat('dd/MM/yyyy').format(pickedDate!);
+                      dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate!);
 
                     }
                 ),
@@ -111,7 +113,7 @@ class _RendezVousState extends State<RendezVousPage> {
                 child: const Text("Envoyer"),
                 callback: (){
                   String dateHeure = dateController.text + " " + heureController.text;
-                  Navigator.pop(context, {"date"  : dateHeure, "lieu" :  lieuController.text} );
+                  Navigator.pop(context, jsonEncode({ "date"  : dateHeure, "lieu" :  lieuController.text} ));
                 },
               ),
             ]),

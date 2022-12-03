@@ -11,7 +11,7 @@ class UserSessionProvider {
 
   static final UserSessionProvider? _instance = UserSessionProvider._internal();
   late  FlutterSecureStorage _flutterSecureStorage;
-  late String jwtToken ;
+   String? jwtToken ;
 
   UserSessionProvider._internal() {
     this._flutterSecureStorage =  FlutterSecureStorage();
@@ -24,8 +24,9 @@ class UserSessionProvider {
   }
 
   Future<String?> get({required String key}) async {
-    return Future.delayed(Duration(seconds: 2),()
+    return Future.delayed(Duration(seconds: 2),() async
     {
+      await _flutterSecureStorage.read(key: key).then((value) => jwtToken = value.toString());
       return _flutterSecureStorage.read(key: key);
     });
 
@@ -35,8 +36,11 @@ class UserSessionProvider {
   }
 
 
-  Utilisateur currentUser() {
-    var json = jsonDecode(jwtToken);
+  Utilisateur currentUser()  {
+    if (jwtToken == null) {
+     get(key: "jwtToken");
+    }
+    var json = jsonDecode(jwtToken!);
     var token = json['tokenString'];
     // To decode the token
     Map<String, dynamic> payload = Jwt.parseJwt(token);
