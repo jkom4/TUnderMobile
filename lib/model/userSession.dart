@@ -34,9 +34,9 @@ class UserSessionProvider {
   }
 
 
-  Utilisateur currentUser()  {
+  Utilisateur currentUser() {
     if (jwtToken == null) {
-     get(key: "jwtToken");
+       get(key: "jwtToken");
     }
     var json = jsonDecode(jwtToken!);
     var token = json['tokenString'];

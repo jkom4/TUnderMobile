@@ -19,8 +19,8 @@ class _Home extends State<Home> {
     MesDemandes(),
     DemandeTutorat(),
     Messaging(),
-    ProfilPage(),
-    Horaire()
+    Horaire(),
+    ProfilPage()
   ];
 
   @override
@@ -48,9 +48,9 @@ class _Home extends State<Home> {
                 icon: Icon(Icons.queue_sharp), label: "Demande tutorat"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.messenger), label: "Messages"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month), label: "Horaire"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
           ],
         ));
   }

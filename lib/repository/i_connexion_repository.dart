@@ -11,4 +11,6 @@ abstract class IConnexionRepository {
   Future getUsrLink();
   Future postUsrLink(String link);
   void logout() {}
+
+  Future<List> fetchRendezVous() ;
 }

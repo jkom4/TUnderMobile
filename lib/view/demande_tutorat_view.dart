@@ -102,6 +102,8 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                 SizedBox(height: 8),
                 ButtonTUnder(
                     width: MediaQuery.of(context).size.width * 0.8,
+                    color: const Color.fromARGB(220, 95, 95, 95),
+                    height: MediaQuery.of(context).size.width * 0.15,
                     callback: () {
                       debugPrint(blocSelected);
                       debugPrint(coursSelected);
@@ -111,6 +113,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                       demandePresenter.confirmForm(blocSelected, coursSelected,
                           tutorSelected, comment, date, lieu);
                     },
+
                     child: const Text("Demander")),
               ],
             )
