@@ -35,7 +35,8 @@ class DemandePresenter {
       demandeRepository.addDemande(demandeToAdd).onError(
           (error, stackTrace) => tutoratView.displayError(error.toString()));
       tutoratView.displayConfirmation("Votre demande a bien été envoyée");
-    } on Error catch (e) {
+      tutoratView.refresh();
+    }catch (e) {
       tutoratView.displayError(e.toString());
     }
   }

@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tunder/components/text_field_container.dart';
-import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/presenter/connexion_presenter.dart';
 import '../components/button_tunder.dart';
 import '../components/snackbar.dart';
@@ -27,8 +28,7 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
 
   @override
   Widget build(BuildContext context) {
-    final user = _presenter.currentUser();
-    //final user = Utilisateur(""," ",",");
+    final user = jsonDecode( _presenter.currentUser());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profil"),
@@ -49,13 +49,13 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
                           const SizedBox(height: 30),
                           const SizedBox(height: 10),
                           Text(
-                            'Nom: ${user.getNom}',
+                            'Nom: ${user['nom']}',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 16),
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Email: ${user.getEmail}',
+                            'Email: ${user['email']}',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 16),
                           ),
@@ -116,13 +116,13 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
                           const SizedBox(height: 30),
                           const SizedBox(height: 10),
                           Text(
-                            'Nom: ${user.getNom}',
+                            'Nom: ${user['nom']}',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 16),
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Email: ${user.getEmail}',
+                            'Email: ${user['email']}',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 16),
                           ),

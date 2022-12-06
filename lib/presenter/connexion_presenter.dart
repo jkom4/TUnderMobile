@@ -26,8 +26,9 @@ class ConnexionPresenter {
       userSession?.set(key: "jwtToken", value: value);
       _view.refresh();
     })
-        .catchError((onError) =>print(onError.toString()));
-        //_view.showMessage("Erreur Oauth:" + onError.toString()));
+        .catchError((onError) {
+      _view.showMessage("Nom d'utilisateur ou mot de passe incorrect! ");
+    });
   }
 
   logout() {
@@ -37,23 +38,29 @@ class ConnexionPresenter {
   }
 
   Connect(String email, String password) {
-    _repository
-        .fetchLogin(email, password)
-        .then((value) =>
-    {
-      print(value),
-      userSession?.set(key: "jwtToken", value: value),
-      _view.refresh(),
-    })
-        .catchError((onError) {
-      print("error login : " + onError.toString());
-      _view.showMessage("Error login : " + onError.toString());
-    });
+    if(email.isNotEmpty && password.isNotEmpty){
+      _repository
+          .fetchLogin(email, password)
+          .then((value)
+      {
+        userSession?.set(key: "jwtToken", value: value);
+        _view.refresh();
+      })
+          .catchError((onError) {
+        _view.showMessage("Nom d'utilisateur ou mot de passe incorrect! ");
+      });
+    }
+    else
+      {
+        _view.showMessage("Nom d'utilisateur ou mot de passe incorrect! ");
+      }
+
   }
 
-  Utilisateur currentUser() {
+  String currentUser() {
     //print(userSession?.currentUser().toJson());
-    return userSession!.currentUser() ;
+    final user = userSession!.currentUser();
+    return jsonEncode({"nom" : user.getNom,"email" : user.getEmail}) ;
   }
 
   Future getHoraireLink() {
@@ -62,7 +69,7 @@ class ConnexionPresenter {
 
   void updateLink(String link) {
     if (link.isEmpty) {
-      _view.showMessage("Erreur : Lien vide ou nul");
+      _view.showMessage("Erreur : Lien vide ou null");
     } else {
       var parsedUri = Uri.encodeComponent(link);
       _repository

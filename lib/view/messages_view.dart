@@ -23,12 +23,14 @@ class _MessagingState extends State<Messaging> implements IMessagesView {
   Widget build(BuildContext context) {
     List<Cours> coursList = List.empty(growable: true);
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Conversations"),
+      ),
       body: Column(
         children: [
           const SizedBox(
             height: 40,
           ),
-          const TitlePage(title: "Messages"),
           Expanded(
             child: FutureBuilder(
               future: messagePresenter.getAllCours(),

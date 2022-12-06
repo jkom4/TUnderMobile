@@ -22,6 +22,9 @@ class _HoraireState extends State<Horaire> implements IHoraire {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Mon Horaire"),
+      ),
       body: FutureBuilder(
         future: presenter.getHoraire(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

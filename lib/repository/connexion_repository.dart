@@ -50,10 +50,8 @@ class ConnexionRepository implements IConnexionRepository {
     final response = await http.post(Uri.parse('${apiUrl}/Auth/token'),
         headers: headers, body: data);
     if (response.statusCode == 200) {
-      //final json = jsonDecode(response.body);
       return response.body;
     } else {
-      debugPrint('response jwt login : $response');
       return null;
     }
   }
@@ -67,8 +65,6 @@ class ConnexionRepository implements IConnexionRepository {
     final response = await http.post(Uri.parse('${apiUrl}/Auth/signin-google'),
         headers: headers, body: data);
     if (response.statusCode == 200) {
-      //final json = jsonDecode(response.body);
-      //Token(json.tokenString,json.expiryDate);
       return response.body;
     } else {
       debugPrint('response for jwtOauth :${response.body}');

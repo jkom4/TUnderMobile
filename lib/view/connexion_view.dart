@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tunder/components/snackbar.dart';
 import 'package:tunder/presenter/i_connexion.dart';
 import 'package:tunder/view/my_homePage.dart';
 import '../components/button_tunder.dart';
@@ -127,7 +126,11 @@ class _LoginPageState extends State<LoginPage> implements IConnexionView {
 
   @override
   void showMessage(String message) {
-    SnackbarCustom.showSnackBar(context, message);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+      elevation: 30,
+    ));
   }
 
   @override

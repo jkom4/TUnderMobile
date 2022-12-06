@@ -12,6 +12,8 @@ import 'package:tunder/presenter/i_demande_tutorat.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
 import 'package:tunder/view/rendez_vous.dart';
 
+import 'my_homePage.dart';
+
 class DemandeTutorat extends StatefulWidget {
   const DemandeTutorat({Key? key}) : super(key: key);
 
@@ -159,5 +161,11 @@ class _DemandeTutoratState extends State<DemandeTutorat>
       backgroundColor: Colors.green,
       elevation: 30,
     ));
+  }
+
+  @override
+  void refresh() {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => MyHomePage()));
   }
 }
