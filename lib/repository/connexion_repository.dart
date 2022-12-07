@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
+import 'package:tunder/model/rencontre.dart';
 import 'package:tunder/repository/i_connexion_repository.dart';
 import 'package:http/http.dart' as http;
 
@@ -50,10 +51,8 @@ class ConnexionRepository implements IConnexionRepository {
     final response = await http.post(Uri.parse('${apiUrl}/Auth/token'),
         headers: headers, body: data);
     if (response.statusCode == 200) {
-      //final json = jsonDecode(response.body);
       return response.body;
     } else {
-      debugPrint('response jwt login : $response');
       return null;
     }
   }
@@ -67,8 +66,6 @@ class ConnexionRepository implements IConnexionRepository {
     final response = await http.post(Uri.parse('${apiUrl}/Auth/signin-google'),
         headers: headers, body: data);
     if (response.statusCode == 200) {
-      //final json = jsonDecode(response.body);
-      //Token(json.tokenString,json.expiryDate);
       return response.body;
     } else {
       debugPrint('response for jwtOauth :${response.body}');
@@ -131,6 +128,26 @@ class ConnexionRepository implements IConnexionRepository {
         throw Exception('Failed to post horaire link: {$mess}');
       }
       return response.body;
+    });
+  }
+
+  @override
+  Future<List> fetchRendezVous() async {
+    return await UserSessionProvider.getInstance!
+        .get(key: "jwtToken")
+        .then((value) async {
+      var json = jsonDecode(value!);
+      var token = json['tokenString'];
+      Response response = await http.get(Uri.parse("$apiUrl/Tutorat/RendezVousUser"),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "bearer $token"
+          });
+      if (response.statusCode != 200) {
+        String mess = response.statusCode.toString();
+        throw Exception('Failed to get rdv for user: {$mess}');
+      }
+      return jsonDecode(response.body) as List;
     });
   }
 }

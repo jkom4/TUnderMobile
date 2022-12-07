@@ -9,9 +9,10 @@ import 'package:tunder/components/tutor_dropdown.dart';
 import 'package:tunder/model/cours.dart';
 import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/presenter/i_demande_tutorat.dart';
-import 'package:tunder/components/title_page.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
 import 'package:tunder/view/rendez_vous.dart';
+
+import 'my_homePage.dart';
 
 class DemandeTutorat extends StatefulWidget {
   const DemandeTutorat({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class DemandeTutorat extends StatefulWidget {
 
 class _DemandeTutoratState extends State<DemandeTutorat>
     implements IdemandeTutorat {
+
   String? date;
   String? lieu;
   late DemandePresenter demandePresenter;
@@ -65,15 +67,16 @@ class _DemandeTutoratState extends State<DemandeTutorat>
 
   @override
   Widget build(BuildContext context) {
-    const pageTitle = "Demande de tutorat";
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Demande de tutorat"),
+      ),
       body: Container(
         margin: const EdgeInsets.all(40),
         child: Form(
             child: SingleChildScrollView(
                 child: Column(
           children: <Widget>[
-            const TitlePage(title: pageTitle),
             blocsDropdown(_updateCoursGivenBlocState),
             coursDropdown(coursGivenBloc, _updateTutorGivenCoursState),
             tutorDropdown(tutorGivenCours, _updateSelectedTutor),
@@ -89,18 +92,20 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                 ElevatedButton(
                   onPressed: () {
                     navigateAndGetRencontre(context).then((value) {
-                      var json = jsonDecode(value);
-                      date = json['date'];
-                      lieu = json['lieu'];
-                    });
+                      print(value);
+                     var json =  jsonDecode(value);
+                     date = json['date'];
+                     lieu = json['lieu'];
+                    }
+                    );
                   },
                   child: const Text('Fixer un rendez-vous'),
                 ),
                 SizedBox(height: 8),
                 ButtonTUnder(
                     width: MediaQuery.of(context).size.width * 0.8,
+                    color: const Color.fromARGB(220, 95, 95, 95),
                     height: MediaQuery.of(context).size.width * 0.15,
-                    color: Colors.black,
                     callback: () {
                       debugPrint(blocSelected);
                       debugPrint(coursSelected);
@@ -110,6 +115,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                       demandePresenter.confirmForm(blocSelected, coursSelected,
                           tutorSelected, comment, date, lieu);
                     },
+
                     child: const Text("Demander")),
               ],
             )
@@ -129,7 +135,7 @@ class _DemandeTutoratState extends State<DemandeTutorat>
 
     // When a BuildContext is used from a StatefulWidget, the mounted property
     // must be checked after an asynchronous gap.
-    if (!mounted) return "";
+    if (!mounted) return "" ;
 
     // After the Selection Screen returns a result, hide any previous snackbars
     // and show the new result.
@@ -155,5 +161,11 @@ class _DemandeTutoratState extends State<DemandeTutorat>
       backgroundColor: Colors.green,
       elevation: 30,
     ));
+  }
+
+  @override
+  void refresh() {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => MyHomePage()));
   }
 }

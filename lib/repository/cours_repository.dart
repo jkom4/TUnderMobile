@@ -10,6 +10,8 @@ import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/repository/i_cours_repository.dart';
 import 'package:http/http.dart' as http;
 
+import '../Model/userSession.dart';
+
 class HttpCoursRepository implements IcoursRepository {
   static final String apiUrl = Environment.apiUrl;
 
@@ -24,22 +26,33 @@ class HttpCoursRepository implements IcoursRepository {
           .map((e) => Cours.fromJson(e))
           .toList();
     } else {
-      throw Exception('Failed to fetch cours');
+      throw Exception('Failed to fetch cours ${response.statusCode}');
     }
   }
 
   @override
   Future<List<Utilisateur>> getTuteursForCours(
       {required String blocName, required String coursName}) async {
-    Response response =
-        await http.get(Uri.parse("$apiUrl/Cours/$blocName/bloc/$coursName"));
+    var jwtString;
+    // je recupere le token dans le secureStorage
+    await UserSessionProvider.getInstance!.get(key: "jwtToken").then((value)  async {
+      jwtString = value;
+    });
+    var json = jsonDecode(jwtString!);
+    var token = json['tokenString'] ;
+      Response response =
+      await http.get(Uri.parse("$apiUrl/Cours/$blocName/bloc/$coursName"),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "bearer $token"
+          });
 
     if (response.statusCode == 200) {
-      return (json.decode(response.body) as List)
+      return (jsonDecode(response.body) as List)
           .map((e) => Utilisateur.fromJson(e))
           .toList();
     } else {
-      throw Exception('Failed to fetch tutor');
+      throw Exception('Failed to fetch tutor ${response.statusCode}');
     }
   }
 

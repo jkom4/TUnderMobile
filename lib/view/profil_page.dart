@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tunder/components/text_field_container.dart';
 import 'package:tunder/presenter/connexion_presenter.dart';
@@ -26,12 +28,13 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
 
   @override
   Widget build(BuildContext context) {
-    final user = _presenter.currentUser();
+    final user = jsonDecode( _presenter.currentUser());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profil"),
       ),
-      body: FutureBuilder(
+      body:
+     FutureBuilder(
           future: data,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -46,13 +49,13 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
                           const SizedBox(height: 30),
                           const SizedBox(height: 10),
                           Text(
-                            'Nom: ${user.getNom}',
+                            'Nom: ${user['nom']}',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 16),
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Email: ${user.getEmail}',
+                            'Email: ${user['email']}',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 16),
                           ),
@@ -103,7 +106,68 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
                   ],
                 );
               } else {
-                showMessage(snapshot.error.toString());
+                print(snapshot.error.toString());
+                return ListView(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Nom: ${user['nom']}',
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 16),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Email: ${user['email']}',
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 16),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            width: 200,
+                          ),
+                          const SizedBox(height: 10),
+                          TextFieldContainer(
+                              child: TextField(
+                                controller: linkControler,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Lien horaire",
+                                ),
+                              )),
+                          const SizedBox(height: 10),
+                          ButtonTUnder(
+                              height: MediaQuery.of(context).size.width * 0.15,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              color: const Color.fromARGB(220, 95, 95, 95),
+                              child: const Text("Ajouter"),
+                              callback: () {
+                                _presenter.updateLink(linkControler.text);
+                                data = _presenter.getHoraireLink();
+                                setState(() {
+                                  refresh();
+                                });
+                              }),
+                          const SizedBox(height: 90),
+                          ButtonTUnder(
+                            height: MediaQuery.of(context).size.width * 0.16,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            color: Colors.black,
+                            child: const Text("Se deconnecter"),
+                            callback: () {
+                              _presenter.logout();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+                //showMessage(snapshot.error.toString());
                 return Container();
               }
             } else {

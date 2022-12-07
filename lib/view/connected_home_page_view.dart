@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tunder/components/message_loby.dart';
 import 'package:tunder/view/demande_tutorat_view.dart';
 import 'package:tunder/view/horaire_view.dart';
 import 'package:tunder/view/mes_demandes_view.dart';
@@ -19,8 +18,8 @@ class _Home extends State<Home> {
     MesDemandes(),
     DemandeTutorat(),
     Messaging(),
-    ProfilPage(),
-    Horaire()
+    Horaire(),
+    ProfilPage()
   ];
 
   @override
@@ -36,7 +35,8 @@ class _Home extends State<Home> {
           selectedFontSize: 8,
           unselectedFontSize: 8,
           elevation: 0,
-          selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+          //selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+          selectedItemColor: Colors.lightBlue,
           currentIndex: indexPage,
           onTap: (index) => setState((() => indexPage = index)),
           items: const [
@@ -48,9 +48,9 @@ class _Home extends State<Home> {
                 icon: Icon(Icons.queue_sharp), label: "Demande tutorat"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.messenger), label: "Messages"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month), label: "Horaire"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
           ],
         ));
   }

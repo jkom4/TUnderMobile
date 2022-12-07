@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tunder/model/demande.dart';
 
 part 'rencontre.g.dart';
 
@@ -42,4 +41,5 @@ class Rencontre {
   String get getAddresse {
     return addresse;
   }
+
 }

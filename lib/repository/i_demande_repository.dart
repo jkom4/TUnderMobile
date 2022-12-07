@@ -4,4 +4,5 @@ abstract class IdemandeRepository {
   Future<List<Demande>?> getMyWaitingDemande();
   Future<List<Demande>> handleDemand();
   Future addDemande(Demande demandeToAdd);
+  Future UpdateStatus(Demande demandeToUpdate);
 }

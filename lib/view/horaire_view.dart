@@ -3,6 +3,8 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:tunder/presenter/horaire_presenter.dart';
 import 'package:tunder/presenter/i_horaire.dart';
 
+import '../model/meeting_data_source.dart';
+
 class Horaire extends StatefulWidget {
   const Horaire({super.key});
 
@@ -20,16 +22,21 @@ class _HoraireState extends State<Horaire> implements IHoraire {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Mon Horaire"),
+      ),
       body: FutureBuilder(
         future: presenter.getHoraire(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
-            return Container();
+            return Container(
+              child: Text(snapshot.error.toString()),
+            );
           } else if (snapshot.hasData) {
             return SfCalendar(
               headerHeight: 70,
               todayHighlightColor: Colors.grey,
-              dataSource: presenter.getData(snapshot.data),
+              dataSource:   presenter.getData(snapshot.data),
               view: CalendarView.workWeek,
               timeZone: 'W. Europe Standard Time',
               timeSlotViewSettings: const TimeSlotViewSettings(

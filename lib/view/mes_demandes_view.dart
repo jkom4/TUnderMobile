@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tunder/components/demande_item.dart';
-import 'package:tunder/components/title_page.dart';
 import 'package:tunder/model/demande.dart';
 import 'package:tunder/presenter/mes_demande_presenter.dart';
 import 'package:tunder/presenter/i_mes_demandes.dart';
@@ -22,11 +21,13 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Mes demandes en attentes"),
+      ),
       body: Column(children: <Widget>[
         const SizedBox(
           height: 40,
         ),
-        const TitlePage(title: "Mes demandes en attentes"),
         FutureBuilder(
           future: mesDemandePresenter.getMyWaitingDemande(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -49,11 +50,15 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                       children: [
                         const SizedBox(height: 10),
                         DemandeItem(
+                          id : demande.id,
                           nom: demande.getDemandeur.toString(),
                           prenom: demande.getDemandeur.toString(),
                           cours: demande.cours.getNom,
                           date: demande.getRencontre.getDate.toString(),
                           lieu: demande.getRencontre.getAddresse,
+                          isUser: mesDemandePresenter.isUser(demande.getDemandeur.toString()),
+                          etat: demande.etat,
+                          presenter: mesDemandePresenter,
                         ),
                       ],
                     );
@@ -72,6 +77,15 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(errorMessage),
       backgroundColor: Colors.red,
+      elevation: 30,
+    ));
+  }
+
+  @override
+  void displayConfirmation(String confirmationMessage) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(confirmationMessage),
+      backgroundColor: Colors.green,
       elevation: 30,
     ));
   }

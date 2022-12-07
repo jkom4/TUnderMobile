@@ -73,4 +73,25 @@ class HttpDemandeRepository implements IdemandeRepository {
     });
 
   }
+
+  @override
+  Future UpdateStatus(Demande demandeToUpdate) async {
+    // je recupere le token dans le secureStorage
+    await UserSessionProvider.getInstance!.get(key: "jwtToken").then((value)  async {
+      var json = jsonDecode(value!);
+      var token = json['tokenString'];
+
+      Response response = await http.post(Uri.parse("$apiUrl/Tutorat/updateStatus"),
+          body: jsonEncode(demandeToUpdate.toJson()),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "bearer $token"
+          });
+      if (response.statusCode != 200) {
+        String mess = response.statusCode.toString();
+        throw Exception('Failed to update status {$mess}');
+      }
+
+    });
+  }
 }

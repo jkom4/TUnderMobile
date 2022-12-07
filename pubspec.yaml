@@ -49,6 +49,8 @@ dependencies:
   google_maps_flutter: ^2.2.1
   flutter_polyline_points: ^1.0.0
   flutter_google_places: ^0.3.0
+  geocoding: ^2.0.0
+  geolocator: ^7.0.3
   syncfusion_flutter_calendar: ^20.3.59
 
   # The following adds the Cupertino Icons font to your application.
@@ -89,6 +91,7 @@ flutter:
     - assets/icons/facebook.svg
     - assets/icons/google.svg
     - assets/icons/linkedin.svg
+    - assets/icons/meeting.svg
     - .env.development
     - .env.production
 

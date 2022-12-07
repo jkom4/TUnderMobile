@@ -1,9 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:tunder/components/constants.dart';
-import 'package:tunder/model/rencontre.dart';
 import '../components/button_tunder.dart';
 import '../components/text_field_container.dart';
 
@@ -43,14 +44,15 @@ class _RendezVousState extends State<RendezVousPage> {
                       //when click we have to show the datepicker
                       DateTime? pickedDate = await showDatePicker(
                         context: context,
-                        initialDate: DateTime.now(), //get today's date
-                        firstDate: DateTime(
-                            2000), //DateTime.now() - not to allow to choose before today.
+                        initialDate: DateTime.now(),
+                        //get today's date
+                        firstDate: DateTime.now(),
+                        //DateTime.now() - not to allow to choose before today.
                         lastDate: DateTime(2101),
                       );
 
                       dateController.text =
-                          DateFormat('dd/MM/yyyy').format(pickedDate!);
+                          DateFormat('dd-MM-yyyy').format(pickedDate!);
                     }),
               ),
               TextFieldContainer(
@@ -94,7 +96,8 @@ class _RendezVousState extends State<RendezVousPage> {
                     Prediction? p = await PlacesAutocomplete.show(
                         context: context,
                         apiKey: google_api_key,
-                        mode: Mode.overlay, // Mode.fullscreen
+                        mode: Mode.overlay,
+                        // Mode.fullscreen
                         offset: 0,
                         radius: 1000,
                         types: [],
@@ -110,14 +113,16 @@ class _RendezVousState extends State<RendezVousPage> {
               ),
               ButtonTUnder(
                 width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.width * 0.1,
-                color: Colors.black,
+                color: const Color.fromARGB(220, 95, 95, 95),
+                height: MediaQuery.of(context).size.width * 0.15,
                 child: const Text("Envoyer"),
                 callback: () {
                   String dateHeure =
                       dateController.text + " " + heureController.text;
-                  Navigator.pop(context,
-                      {"date": dateHeure, "lieu": lieuController.text});
+                  Navigator.pop(
+                      context,
+                      jsonEncode(
+                          {"date": dateHeure, "lieu": lieuController.text}));
                 },
               ),
             ]),
