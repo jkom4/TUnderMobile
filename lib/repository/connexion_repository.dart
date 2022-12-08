@@ -45,7 +45,8 @@ class ConnexionRepository implements IConnexionRepository {
 
   @override
   Future fetchLogin(String username, String password) async {
-    var data = jsonEncode({"username": username, "password": password});
+    var data =
+        jsonEncode({"username": username, "email": "", "password": password});
     var headers = {"Content-Type": "application/json"};
     final response = await http.post(Uri.parse('${apiUrl}/Auth/token'),
         headers: headers, body: data);
