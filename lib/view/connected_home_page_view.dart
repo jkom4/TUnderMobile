@@ -4,6 +4,7 @@ import 'package:tunder/view/horaire_view.dart';
 import 'package:tunder/view/mes_demandes_view.dart';
 import 'package:tunder/view/messages_view.dart';
 import 'package:tunder/view/profil_page.dart';
+import 'package:tunder/view/syntheses_view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,6 +19,7 @@ class _Home extends State<Home> {
     MesDemandes(),
     DemandeTutorat(),
     Messaging(),
+    SynthesePage(),
     Horaire(),
     ProfilPage()
   ];
@@ -48,6 +50,8 @@ class _Home extends State<Home> {
                 icon: Icon(Icons.queue_sharp), label: "Demande tutorat"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.messenger), label: "Messages"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.my_library_books), label: "Synthèses"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month), label: "Horaire"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),

@@ -179,7 +179,11 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
 
   @override
   void showMessage(String message) {
-    SnackbarCustom.showSnackBar(context, message);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.green,
+      elevation: 30,
+    ));
   }
 
   @override
