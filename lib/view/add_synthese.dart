@@ -21,6 +21,7 @@ class _AddSyntheseState extends State<AddSynthesePage> {
   late Future<List<Cours>> coursGivenBloc = widget.coursBloc;
   String blocSelected = "B1";
   String? coursSelected;
+  FilePickerResult? result;
 
 
   @override
@@ -44,7 +45,8 @@ class _AddSyntheseState extends State<AddSynthesePage> {
                     height: MediaQuery.of(context).size.width * 0.15,
                     child: const Text("Choisir un fichier"),
                     callback: () async {
-                      var result = await FilePicker.platform.pickFiles();
+                       result = await FilePicker.platform.pickFiles();
+
                     }
                 ),
                 SizedBox(height: 8),
@@ -53,7 +55,9 @@ class _AddSyntheseState extends State<AddSynthesePage> {
                   color: const Color.fromARGB(220, 95, 95, 95),
                   height: MediaQuery.of(context).size.width * 0.15,
                   child: const Text("Envoyer"),
-                  callback: () {}
+                  callback: () {
+                    widget.presenter.addSynthese(blocSelected ,coursSelected,result);
+                  }
 
                 ),
               ]),
