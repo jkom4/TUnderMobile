@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/src/file_picker_result.dart';
 import 'package:ftpconnect/ftpconnect.dart';
@@ -12,8 +13,6 @@ import '../Model/userSession.dart';
 
 class SyntheseRepository implements ISyntheseRepository {
   static final apiUrl = Environment.apiUrl;
-  FTPConnect ftpConnect = FTPConnect(
-      '192.168.128.13', user: 'e200851', pass: 'aKkdUP7f');
 
   SyntheseRepository();
 
@@ -40,12 +39,13 @@ class SyntheseRepository implements ISyntheseRepository {
   @override
   Future saveFile(FilePickerResult result) async {
     try {
-      File fileToUpload = File(result.files.first.path!);
-      await ftpConnect.connect();
-      await ftpConnect.changeDirectory('Syntheses');
-      await ftpConnect.uploadFile(fileToUpload);
-      await ftpConnect.disconnect();
-    } catch (e) {
+      final fileName =  result.files.first.name!;
+      final destination = 'syntheses/$fileName';
+      final ref = FirebaseStorage.instance.ref(destination);
+      var file = File(result.files.single.path!);
+      ref.putFile(file);
+      return ref.getDownloadURL();
+    } on FirebaseException catch (e) {
       print(e);
     }
   }
@@ -80,28 +80,18 @@ class SyntheseRepository implements ISyntheseRepository {
   }
 
   @override
-  Future downloadFile(String fileName) async {
+  Future downloadFile(String url) async {
     try {
-      File downloadedFile = await _fileMock(fileName: fileName);
-      await ftpConnect.connect();
-      await ftpConnect.changeDirectory('Syntheses');
-      await ftpConnect.downloadFile(fileName, downloadedFile);
-      await ftpConnect.disconnect();
-      print(downloadedFile.path);
-      return downloadedFile;
+      final httpsReference = FirebaseStorage.instance.refFromURL(url);
+      final dir = await getApplicationDocumentsDirectory();
+      final fileName = httpsReference.name;
+      final File file = File('${dir.path}/$fileName');
+      await httpsReference.writeToFile(file);
+      return file;
     }catch(e){
       print("repository "+ e.toString());
     }
 
-  }
-
-  ///mock a file for the demonstration example
-  Future<File> _fileMock({fileName = 'FlutterTest.txt', content = ''}) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final Directory newDirectory = Directory('${directory.path}/images')..createSync(recursive: true);
-    final File file = File('${directory.path}/$fileName');
-    await file.writeAsString(content);
-    return file;
   }
 
 }

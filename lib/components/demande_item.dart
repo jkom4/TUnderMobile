@@ -30,48 +30,34 @@ class _DemandeItemState extends State<DemandeItem> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Color.fromARGB(255, 60, 59, 59), width: 1)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+    return Card(
+      child: Column(
         children: [
-          SizedBox(width: width * .05),
-          SizedBox(
-              width: width * 0.20,
-              height: 50,
-              child: Text(
-                "${widget.nom} ${widget.prenom}",
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              )),
-          SizedBox(width: width * .05),
-          SizedBox(
-              width: width * .25,
-              height: 50,
-              child: Text(
-                widget.cours,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              )),
-          SizedBox(width: width * .05),
-          SizedBox(width: width * .05),
-          SizedBox(width: width * .05),
-          SizedBox(width: width * .05),
-          SizedBox(
-              width: width * .20,
-              height: 30,
-              child: widget.isUser
-                  ? TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.lightBlue),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24)))),
-                      child: Text(widget.etat))
-                  : TextButton(
+          ListTile(
+            leading: Icon(Icons.school_outlined),
+            title: Text('${widget.prenom} '),
+            subtitle: Text('${widget.cours}      Status: ${widget.etat}',),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: widget.isUser
+                ? <Widget>[
+                    const SizedBox(width: 8),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: Colors.lightBlue),
+                      child: const Text('Fermer'),
+                      onPressed: () {
+                        /* ... */
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                  ]
+                : <Widget>[
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: Colors.lightBlueAccent),
+                      child: const Text('Details'),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -88,16 +74,27 @@ class _DemandeItemState extends State<DemandeItem> {
                                   )),
                         );
                       },
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.lightBlue),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24)))),
-                      child: const Text("Details"))),
-          SizedBox(width: width * .01),
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: Colors.redAccent),
+                      child: const Text('Refuser'),
+                      onPressed: () {
+                        widget.presenter.updateStatus(widget.id, false);
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: Colors.lightBlue),
+                      child: const Text('Accepter'),
+                      onPressed: () {
+                        widget.presenter.updateStatus(widget.id, true);
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+          ),
         ],
       ),
     );

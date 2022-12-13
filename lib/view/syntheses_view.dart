@@ -158,13 +158,12 @@ class ListSynthese extends StatelessWidget {
                     return Card(
                       child: ListTile(
                         leading: Icon(Icons.note_alt_sharp),
-                        title: Text('${synthese.fileName} '),
+                        title: Text(' Synthese ${synthese.getCreationDate.toString()} '),
                         subtitle: Text('${synthese.getAutheurOf}  ${synthese.getCreationDate} '),
                         onTap: () async {
                           await presenter
-                              .downloadFile(synthese.fileName)
+                              .downloadFile(synthese.getUrl)
                               .then((file) {
-                            print("view " + file.toString());
                             OpenFile.open(file.path);
                           });
                         },

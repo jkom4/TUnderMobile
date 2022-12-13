@@ -32,10 +32,10 @@ class SynthesePresenter {
       _view.displayError("Veuillez selectionner le cours et une synthese");
     } else {
       Cours cours = Cours(coursSelected, blocSelected);
-      await _repository.saveFile(result!).then((value) async {
+      await _repository.saveFile(result!).then((url) async {
         print("file save !");
-        Synthese synthese =
-            Synthese(0, null, result.files.first.name, null, cours);
+        print(url);
+        Synthese synthese = Synthese(0, null, url, null, cours);
         await _repository.addSynthese(synthese);
         _view.displayConfirmation("Synthèse enregistrée");
       }).catchError((e) {
@@ -56,8 +56,8 @@ class SynthesePresenter {
     await getSyntheses();
     List<Synthese> synthesesForCours = [];
     for (var value in syntheses) {
-      if (value.cours.getNom == cours.getNom && value.cours.getBloc == cours.getBloc) {
-
+      if (value.cours.getNom == cours.getNom &&
+          value.cours.getBloc == cours.getBloc) {
         synthesesForCours.add(value);
       }
     }
@@ -65,8 +65,7 @@ class SynthesePresenter {
     return synthesesForCours;
   }
 
-   Future downloadFile(String fileName) async {
-   return await _repository.downloadFile(fileName);
-
+  Future downloadFile(String url) async {
+    return await _repository.downloadFile(url);
   }
 }

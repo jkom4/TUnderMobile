@@ -9,15 +9,15 @@ part 'synthese.g.dart';
 class Synthese {
   late int  id;
   DateTime? creationDate;
-  late String fileName;
+  late String url;
   String? autheurOf;
   late Cours cours;
 
-  Synthese(int id, DateTime? creationDate, String fileName, String? autheurOf,
+  Synthese(int id, DateTime? creationDate, String url, String? autheurOf,
       Cours cours) {
     setId = id;
     setCreationDate = creationDate;
-    setFileName = fileName;
+    setUrl = url;
     setAutheurOf = autheurOf;
     setCours = cours;
   }
@@ -50,12 +50,12 @@ class Synthese {
     }
   }
 
-  String get getFileName {
-    return  fileName;
+  String get getUrl {
+    return  url;
   }
 
-  set setFileName(String fileName) {
-      this.fileName = fileName;
+  set setUrl(String fileName) {
+      this.url = fileName;
   }
 
   set setCours(Cours cours) {

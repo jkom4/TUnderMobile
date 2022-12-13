@@ -11,7 +11,7 @@ Synthese _$SyntheseFromJson(Map<String, dynamic> json) => Synthese(
       json['creationDate'] == null
           ? null
           : DateTime.parse(json['creationDate'] as String),
-      json['fileName'] as String,
+      json['url'] as String,
       json['autheurOf'] as String?,
       Cours.fromJson(json['cours'] as Map<String, dynamic>),
     );
@@ -19,7 +19,7 @@ Synthese _$SyntheseFromJson(Map<String, dynamic> json) => Synthese(
 Map<String, dynamic> _$SyntheseToJson(Synthese instance) => <String, dynamic>{
       'id': instance.id,
       'creationDate': instance.creationDate?.toIso8601String(),
-      'fileName': instance.fileName,
+      'url': instance.url,
       'autheurOf': instance.autheurOf,
       'cours': instance.cours,
     };
