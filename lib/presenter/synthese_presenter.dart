@@ -55,10 +55,9 @@ class SynthesePresenter {
   Future<List<Synthese>> synthesesForCours(Cours cours) async {
     await getSyntheses();
     List<Synthese> synthesesForCours = [];
-    print(cours.getNom);
     for (var value in syntheses) {
-      print(value.cours.getNom);
       if (value.cours.getNom == cours.getNom && value.cours.getBloc == cours.getBloc) {
+
         synthesesForCours.add(value);
       }
     }

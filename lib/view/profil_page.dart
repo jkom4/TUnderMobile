@@ -49,7 +49,7 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
                           const SizedBox(height: 30),
                           const SizedBox(height: 10),
                           Text(
-                            'Nom: ${user['nom']}',
+                            'Nom: ',
                             style: const TextStyle(
                                 color: Colors.grey, fontSize: 16),
                           ),

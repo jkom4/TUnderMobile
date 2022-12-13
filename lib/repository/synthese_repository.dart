@@ -68,10 +68,10 @@ class SyntheseRepository implements ISyntheseRepository {
     if (response.statusCode == 200) {
       Iterable r = jsonDecode(response.body);
 
-
       List<Synthese> syntheses = await (jsonDecode(response.body) as List)
           .map((i) => Synthese.fromJson(i))
           .toList();
+
       return syntheses;
     } else {
       String mess = response.statusCode.toString();
