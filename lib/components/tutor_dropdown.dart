@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tunder/model/utilisateur.dart';
 
 Widget tutorDropdown(
-    Future<List<Utilisateur>>? tutorGivenCours, Function callback) {
+    Future<List>? tutorGivenCours, Function callback) {
   List<DropdownMenuItem<String>> tutor = List.empty(growable: true);
   String? selectedTutor;
   return DropdownButtonHideUnderline(
-      child: FutureBuilder<List<Utilisateur>>(
+      child: FutureBuilder<List>(
     future: tutorGivenCours,
     initialData: const [],
     builder: (context, snapshot) {

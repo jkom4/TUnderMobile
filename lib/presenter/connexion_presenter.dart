@@ -8,6 +8,7 @@ import '../model/userSession.dart';
 import '../repository/connexion_repository.dart';
 import '../repository/i_connexion_repository.dart';
 
+///Cette classe permet de gerer la connexion d'un utilisateur
 class ConnexionPresenter {
   late IConnexionView _view;
   late IConnexionRepository _repository;
@@ -18,6 +19,8 @@ class ConnexionPresenter {
     _repository = ConnexionRepository();
   }
 
+  ///Permet de connecter un utilisateur avec son compte google
+  ///Une fois que les credentials sont bon et le JWT obtenu alors on le set dans le FlutterSecureStorage
   googleConnect() {
     _repository
         .signInWithGoogle()
@@ -31,12 +34,15 @@ class ConnexionPresenter {
     });
   }
 
+  ///Permet de deconnecter un utilisateur connecté
   logout() {
     _repository.logout();
     userSession?.clear();
     _view.refresh();
   }
 
+  ///Permet de connecter un utilisateur de façon standard avec un login et mot de passe
+  ///Une fois que les credentials sont bon et le JWT obtenu alors on le set dans le FlutterSecureStorage
   Connect(String email, String password) {
     if(email.isNotEmpty && password.isNotEmpty){
       _repository
@@ -56,17 +62,20 @@ class ConnexionPresenter {
       }
 
   }
-
+  ///Permet de recuperer les données de l'utilisateur connecté
+  ///return objet Json {nom : "", email : ""}
   String currentUser() {
-    //print(userSession?.currentUser().toJson());
     final user = userSession!.currentUser();
     return jsonEncode({"nom" : user.getNom,"email" : user.getEmail}) ;
   }
 
+  ///Permet de recuperer l'horaire de l'utilisateur connecté
+  ///return Future avec l'url
   Future getHoraireLink() {
     return _repository.getUsrLink();
   }
 
+  ///Permet de mettre a jour le lien d'horaire
   void updateLink(String link) {
     if (link.isEmpty) {
       _view.showMessage("Erreur : Lien vide ou null");

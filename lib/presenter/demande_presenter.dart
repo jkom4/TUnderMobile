@@ -8,6 +8,7 @@ import 'package:tunder/repository/i_cours_repository.dart';
 import 'package:tunder/presenter/i_demande_tutorat.dart';
 import 'package:tunder/repository/i_demande_repository.dart';
 
+///Cette classe permet de gerer les demandes
 class DemandePresenter {
   IdemandeTutorat tutoratView;
   late IcoursRepository coursRepository = HttpCoursRepository();
@@ -15,16 +16,22 @@ class DemandePresenter {
 
   DemandePresenter(this.tutoratView);
 
+  /// Recupère les tous les cours d'un bloc donné
+  /// params String blocName
+  /// Return List
   Future<List<Cours>> getAllClasses(String blocName) {
     return coursRepository.getCoursFromBloc(blocName: blocName);
   }
-
+  /// Recupère les tuteurs d'un bloc donné et d'un cours donné
+  /// params String blocName, String coursname
+  /// Return List
   Future<List<Utilisateur>> getTutorForClasses(
       String blocName, String coursname) {
     return coursRepository.getTuteursForCours(
         blocName: blocName, coursName: coursname);
   }
 
+  ///Permet d'ajouter une nouvelle demande de tutorat
   void confirmForm(String blocSelected, String? coursSelected,
       String? tutorSelected, String? comment, String? date, String? lieu) {
     try {

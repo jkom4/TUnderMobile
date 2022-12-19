@@ -9,7 +9,7 @@ import 'dart:math' show cos, sqrt, asin;
 
 import '../components/constants.dart';
 
-
+///cette vu permet de naviguer jusqu'au point de rendez vous
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key, required this.lieu});
   final String lieu;
@@ -45,7 +45,7 @@ class _NavigationPageState extends State<NavigationPage> {
 
 
 
-  // Method for retrieving the current location
+  /// methode pour recuperer la position de l'utilisateur
   _getCurrentLocation() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
@@ -60,7 +60,7 @@ class _NavigationPageState extends State<NavigationPage> {
     });
   }
 
-  // Method for retrieving the address
+  /// Methode pour recuperer l'adresse de l'utilisateur a partir de la position LatLng
   _getAddress() async {
     try {
       List<Placemark> p = await placemarkFromCoordinates(
@@ -79,7 +79,7 @@ class _NavigationPageState extends State<NavigationPage> {
     }
   }
 
-  // Method for calculating the distance between two places
+  /// Methode qui calcule la distance entre deux points
   Future<bool> _calculateDistance() async {
     try {
       // Retrieving placemarks from addresses
@@ -105,7 +105,7 @@ class _NavigationPageState extends State<NavigationPage> {
       String destinationCoordinatesString =
           '($destinationLatitude, $destinationLongitude)';
 
-      // Start Location Marker
+      // Marquer le depart
       Marker startMarker = Marker(
         markerId: MarkerId(startCoordinatesString),
         position: LatLng(startLatitude, startLongitude),
@@ -116,7 +116,7 @@ class _NavigationPageState extends State<NavigationPage> {
         icon: BitmapDescriptor.defaultMarker,
       );
 
-      // Destination Location Marker
+      // marquer la destination
       Marker destinationMarker = Marker(
         markerId: MarkerId(destinationCoordinatesString),
         position: LatLng(destinationLatitude, destinationLongitude),
@@ -219,7 +219,7 @@ class _NavigationPageState extends State<NavigationPage> {
     return 12742 * asin(sqrt(a));
   }
 
-  // Create the polylines for showing the route between two places
+  /// Creer le polylines pour montrer le chemin entre les deux points
   _createPolylines(
       double startLatitude,
       double startLongitude,

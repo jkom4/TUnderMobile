@@ -6,19 +6,22 @@ import 'package:tunder/presenter/i_horaire.dart';
 import 'package:tunder/repository/connexion_repository.dart';
 import 'package:tunder/repository/i_connexion_repository.dart';
 
+///Cette classe permet de gerer les horaires
 class HorairePresenter {
   IHoraire horaireView;
   late IConnexionRepository repository = ConnexionRepository();
   List<Meeting> meetings = <Meeting>[];
-
+  ///Construteur prend en parametre la vue horaire
   HorairePresenter(this.horaireView);
 
+  ///Permet de recuperer l'horaire de l'utilisateur
+  ///return Future
   Future getHoraire() async {
     await addRdvToCalendar();
     return repository.fetchUsrHoraire();
   }
 
-
+  ///Permet d'ajouter le rendez vous de l'utilisateur dans le calendrier
   Future addRdvToCalendar()  async {
      await repository.fetchRendezVous().then((rendezVous) {
       for(var rdv in rendezVous){
@@ -32,6 +35,9 @@ class HorairePresenter {
     }).catchError((onError) => print(onError));
   }
 
+  ///Permet de traiter les données qui ont été recuperé de l'url de l'horaire et les ajouter dans l'objet Meeting
+  ///params String calendar
+  ///return MeetingDataSource
   MeetingDataSource getData(String calendar)  {
     var data = calendar.split('\\r\\n');
     debugPrint(data.length.toString());

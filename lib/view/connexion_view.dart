@@ -6,6 +6,7 @@ import '../components/social_icon.dart';
 import '../components/text_field_container.dart';
 import '../presenter/connexion_presenter.dart';
 
+///Cette vue permet la a l'utilisateur d'entrer ses credentials
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
 

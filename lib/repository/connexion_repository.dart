@@ -86,6 +86,7 @@ class ConnexionRepository implements IConnexionRepository {
             "Authorization": "bearer $token"
           });
       if (response.statusCode != 200) {
+
         String mess = response.statusCode.toString();
         throw Exception('Failed to get get horaire: {$mess}');
       }

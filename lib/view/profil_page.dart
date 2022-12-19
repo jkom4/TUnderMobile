@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:tunder/components/text_field_container.dart';
 import 'package:tunder/presenter/connexion_presenter.dart';
 import '../components/button_tunder.dart';
-import '../components/snackbar.dart';
 import '../presenter/i_connexion.dart';
 import 'my_homePage.dart';
 
+/// Cette vue permet d'afficher le profile de l'utilisateur connecté
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
 

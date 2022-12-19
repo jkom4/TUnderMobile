@@ -3,22 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:tunder/components/blocs_dropdown.dart';
 import 'package:tunder/components/button_tunder.dart';
 import 'package:tunder/presenter/synthese_presenter.dart';
-
 import '../components/cours_dropdown.dart';
-import '../model/cours.dart';
 
-
+///Cette vue permet a l'utilisateur d'ajouter une nouvelle synthèse
 class AddSynthesePage extends StatefulWidget {
   const AddSynthesePage({Key? key, required this.presenter, required this.coursBloc}) : super(key: key);
   final SynthesePresenter presenter;
-  final Future<List<Cours>> coursBloc;
+  final Future<List> coursBloc;
 
   @override
   State<AddSynthesePage> createState() => _AddSyntheseState();
 }
 
 class _AddSyntheseState extends State<AddSynthesePage> {
-  late Future<List<Cours>> coursGivenBloc = widget.coursBloc;
+  late Future<List> coursGivenBloc = widget.coursBloc;
   String blocSelected = "B1";
   String? coursSelected;
   FilePickerResult? result;

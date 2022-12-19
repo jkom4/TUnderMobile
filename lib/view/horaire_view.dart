@@ -3,8 +3,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:tunder/presenter/horaire_presenter.dart';
 import 'package:tunder/presenter/i_horaire.dart';
 
-import '../model/meeting_data_source.dart';
-
+///Cette vue permet d'afficher l'horaire
 class Horaire extends StatefulWidget {
   const Horaire({super.key});
 

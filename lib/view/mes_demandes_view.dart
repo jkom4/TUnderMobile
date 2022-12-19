@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tunder/components/demande_item.dart';
-import 'package:tunder/model/demande.dart';
 import 'package:tunder/presenter/mes_demande_presenter.dart';
 import 'package:tunder/presenter/i_mes_demandes.dart';
-
+///
+/// Cette vue affiche la liste des demandes en attentes
 class MesDemandes extends StatefulWidget {
   const MesDemandes({super.key});
 
@@ -45,10 +45,11 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                   shrinkWrap: true,
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    Demande demande = snapshot.data[index];
+                    var demande = snapshot.data[index];
                     return Column(
                       children: [
                         const SizedBox(height: 10),
+                        //on l'envoie au component qui permet d'afficher chaque element
                         DemandeItem(
                           id : demande.id,
                           nom: demande.getDemandeur.toString(),

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tunder/components/messages.dart';
-
+///Cette vue affiche la conversation pour un cours données
 class MessageLoby extends StatefulWidget {
   final String coursName;
   final String usrEmail;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tunder/components/message_loby.dart';
-import 'package:tunder/components/title_page.dart';
-import 'package:tunder/model/cours.dart';
 import 'package:tunder/presenter/i_message.dart';
 import 'package:tunder/presenter/message_presenter.dart';
 
+///Cette vue affiche le chat par cours
 class Messaging extends StatefulWidget {
   const Messaging({super.key});
 
@@ -21,7 +20,7 @@ class _MessagingState extends State<Messaging> implements IMessagesView {
 
   @override
   Widget build(BuildContext context) {
-    List<Cours> coursList = List.empty(growable: true);
+    List coursList = List.empty(growable: true);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Conversations"),

@@ -8,6 +8,7 @@ import 'package:tunder/components/constants.dart';
 import '../components/button_tunder.dart';
 import '../components/text_field_container.dart';
 
+/// Cette vue permet de fixer un rendez vous lors d'une demande de tutorat
 class RendezVousPage extends StatefulWidget {
   const RendezVousPage({Key? key}) : super(key: key);
 

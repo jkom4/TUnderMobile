@@ -6,14 +6,13 @@ import 'package:tunder/components/button_tunder.dart';
 import 'package:tunder/components/comment_textfield.dart';
 import 'package:tunder/components/cours_dropdown.dart';
 import 'package:tunder/components/tutor_dropdown.dart';
-import 'package:tunder/model/cours.dart';
-import 'package:tunder/model/utilisateur.dart';
 import 'package:tunder/presenter/i_demande_tutorat.dart';
 import 'package:tunder/presenter/demande_presenter.dart';
 import 'package:tunder/view/rendez_vous.dart';
 
 import 'my_homePage.dart';
 
+///Cette vue permet de faire une demande de tutorat
 class DemandeTutorat extends StatefulWidget {
   const DemandeTutorat({Key? key}) : super(key: key);
 
@@ -27,8 +26,8 @@ class _DemandeTutoratState extends State<DemandeTutorat>
   String? date;
   String? lieu;
   late DemandePresenter demandePresenter;
-  late Future<List<Cours>> coursGivenBloc;
-  Future<List<Utilisateur>>? tutorGivenCours;
+  late Future<List> coursGivenBloc;
+  Future<List>? tutorGivenCours;
   String blocSelected = "B1";
   String? coursSelected, tutorSelected, comment;
 

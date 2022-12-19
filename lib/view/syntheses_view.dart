@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
-import 'package:tunder/model/synthese.dart';
 import 'package:tunder/presenter/i_synthese.dart';
-
-import '../model/cours.dart';
 import '../presenter/synthese_presenter.dart';
 import 'add_synthese.dart';
 
+/**
+ * Cette vue liste les cours pour acceder aux synthèses
+ */
 class SynthesePage extends StatefulWidget {
   const SynthesePage({super.key});
 
@@ -18,7 +18,7 @@ class SynthesePage extends StatefulWidget {
 
 class _SynthesePageState extends State<SynthesePage> implements ISyntheseView {
   late SynthesePresenter presenter;
-  late Future<List<Cours>> coursGivenBloc;
+  late Future<List> coursGivenBloc;
   String blocSelected = "B1";
 
   _SynthesePageState() {
@@ -92,8 +92,7 @@ class _SynthesePageState extends State<SynthesePage> implements ISyntheseView {
                                                 syntheses: syntheses,
                                                 presenter: presenter)));
                                   }
-                                }).catchError(
-                                        (onError) => print(onError.toString()));
+                                });
                               },
                             ),
                           );
@@ -127,6 +126,9 @@ class _SynthesePageState extends State<SynthesePage> implements ISyntheseView {
   }
 }
 
+/**
+ * Cette classe permet de lister les synthèses propres a un cours
+ */
 class ListSynthese extends StatelessWidget {
   const ListSynthese({
     Key? key,
@@ -134,7 +136,7 @@ class ListSynthese extends StatelessWidget {
     required this.presenter,
   }) : super(key: key);
 
-  final List<Synthese> syntheses;
+  final List syntheses;
   final SynthesePresenter presenter;
 
   @override
@@ -164,6 +166,7 @@ class ListSynthese extends StatelessWidget {
                           await presenter
                               .downloadFile(synthese.getUrl)
                               .then((file) {
+                                //Ouvrir le fichier une fois qu'il est recuperé
                             OpenFile.open(file.path);
                           });
                         },
