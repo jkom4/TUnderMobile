@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/src/file_picker_result.dart';
-import 'package:ftpconnect/ftpconnect.dart';
 import 'package:http/http.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tunder/model/synthese.dart';
@@ -19,11 +18,13 @@ class SyntheseRepository implements ISyntheseRepository {
   @override
   Future addSynthese(Synthese synthese) async {
     // je recupere le token dans le secureStorage
-    await UserSessionProvider.getInstance!.get(key: "jwtToken").then((
-        value) async {
+    await UserSessionProvider.getInstance!
+        .get(key: "jwtToken")
+        .then((value) async {
       var json = jsonDecode(value!);
       var token = json['tokenString'];
-      Response response = await http.post(Uri.parse('${apiUrl}/Synthese'),
+      Response response = await http.post(
+          Uri.parse('${apiUrl}/Syntheses/Synthese'),
           body: jsonEncode(synthese.toJson()),
           headers: {
             "Content-Type": "application/json",
@@ -39,7 +40,7 @@ class SyntheseRepository implements ISyntheseRepository {
   @override
   Future saveFile(FilePickerResult result) async {
     try {
-      final fileName =  result.files.first.name!;
+      final fileName = result.files.first.name!;
       final destination = 'syntheses/$fileName';
       final ref = FirebaseStorage.instance.ref(destination);
       var file = File(result.files.single.path!);
@@ -53,17 +54,19 @@ class SyntheseRepository implements ISyntheseRepository {
   @override
   Future<List<Synthese>?> getSynthese() async {
     var jwt;
-    await UserSessionProvider.getInstance!.get(key: "jwtToken").then((
-        value) async {
+    await UserSessionProvider.getInstance!
+        .get(key: "jwtToken")
+        .then((value) async {
       jwt = value;
     });
 
     var json = jsonDecode(jwt!);
     var token = json['tokenString'];
-    Response response = await http.get(Uri.parse("$apiUrl/Synthese"), headers: {
-      "Content-Type": "application/json",
-      "Authorization": "bearer $token"
-    });
+    Response response = await http.get(Uri.parse("$apiUrl/Syntheses/Synthese"),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "bearer $token"
+        });
 
     if (response.statusCode == 200) {
       Iterable r = jsonDecode(response.body);
@@ -88,11 +91,8 @@ class SyntheseRepository implements ISyntheseRepository {
       final File file = File('${dir.path}/$fileName');
       await httpsReference.writeToFile(file);
       return file;
-    }catch(e){
-      print("repository "+ e.toString());
+    } catch (e) {
+      print("repository " + e.toString());
     }
-
   }
-
 }
-

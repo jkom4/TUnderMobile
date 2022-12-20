@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tunder/components/demande_item.dart';
 import 'package:tunder/presenter/mes_demande_presenter.dart';
 import 'package:tunder/presenter/i_mes_demandes.dart';
-
 ///
 /// Cette vue affiche la liste des demandes en attentes
 class MesDemandes extends StatefulWidget {

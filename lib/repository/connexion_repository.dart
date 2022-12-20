@@ -48,7 +48,7 @@ class ConnexionRepository implements IConnexionRepository {
     var data =
         jsonEncode({"username": username, "email": "", "password": password});
     var headers = {"Content-Type": "application/json"};
-    final response = await http.post(Uri.parse('${apiUrl}/Auth/token'),
+    final response = await http.post(Uri.parse('${apiUrl}/Users/SignIn'),
         headers: headers, body: data);
 
     if (response.statusCode == 200) {
@@ -64,7 +64,7 @@ class ConnexionRepository implements IConnexionRepository {
         jsonEncode({"Username": user?.displayName, "Email": user?.email});
     //{"Username": "Tunder", "Password": "tunder@tunder.com"});
     var headers = {"Content-Type": "application/json"};
-    final response = await http.post(Uri.parse('${apiUrl}/Auth/signin-google'),
+    final response = await http.post(Uri.parse('${apiUrl}/Users/SignIn-google'),
         headers: headers, body: data);
     if (response.statusCode == 200) {
       return response.body;
@@ -72,84 +72,5 @@ class ConnexionRepository implements IConnexionRepository {
       debugPrint('response for jwtOauth :${response.body}');
       return null;
     }
-  }
-
-  @override
-  Future fetchUsrHoraire() async {
-    return await UserSessionProvider.getInstance!
-        .get(key: "jwtToken")
-        .then((value) async {
-      var json = jsonDecode(value!);
-      var token = json['tokenString'];
-      Response response = await http.get(Uri.parse("$apiUrl/Horaire"),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "bearer $token"
-          });
-      if (response.statusCode != 200) {
-
-        String mess = response.statusCode.toString();
-        throw Exception('Failed to get get horaire: {$mess}');
-      }
-      return response.body;
-    });
-  }
-
-  @override
-  Future getUsrLink() async {
-    return await UserSessionProvider.getInstance!
-        .get(key: "jwtToken")
-        .then((value) async {
-      var json = jsonDecode(value!);
-      var token = json['tokenString'];
-      Response response = await http.get(Uri.parse("$apiUrl/Horaire/link"),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "bearer $token"
-          });
-      if (response.statusCode != 200) {
-        String mess = response.statusCode.toString();
-        throw Exception('Failed to get get horaire link: {$mess}');
-      }
-      return response.body;
-    });
-  }
-
-  @override
-  Future postUsrLink(String link) async {
-    return await UserSessionProvider.getInstance!
-        .get(key: "jwtToken")
-        .then((value) async {
-      var json = jsonDecode(value!);
-      var token = json['tokenString'];
-      Response response = await http.put(
-          Uri.parse("$apiUrl/Horaire?link=$link"),
-          headers: {"Authorization": "bearer $token"});
-      if (response.statusCode != 200) {
-        String mess = response.statusCode.toString();
-        throw Exception('Failed to post horaire link: {$mess}');
-      }
-      return response.body;
-    });
-  }
-
-  @override
-  Future<List> fetchRendezVous() async {
-    return await UserSessionProvider.getInstance!
-        .get(key: "jwtToken")
-        .then((value) async {
-      var json = jsonDecode(value!);
-      var token = json['tokenString'];
-      Response response = await http.get(Uri.parse("$apiUrl/Tutorat/RendezVousUser"),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "bearer $token"
-          });
-      if (response.statusCode != 200) {
-        String mess = response.statusCode.toString();
-        throw Exception('Failed to get rdv for user: {$mess}');
-      }
-      return jsonDecode(response.body) as List;
-    });
   }
 }
