@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tunder/components/demande_item.dart';
 import 'package:tunder/presenter/mes_demande_presenter.dart';
 import 'package:tunder/presenter/i_mes_demandes.dart';
+
 ///
 /// Cette vue affiche la liste des demandes en attentes
 class MesDemandes extends StatefulWidget {
@@ -51,13 +52,14 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                         const SizedBox(height: 10),
                         //on l'envoie au component qui permet d'afficher chaque element
                         DemandeItem(
-                          id : demande.id,
+                          id: demande.id,
                           nom: demande.getDemandeur.toString(),
                           prenom: demande.getDemandeur.toString(),
                           cours: demande.cours.getNom,
                           date: demande.getRencontre.getDate.toString(),
                           lieu: demande.getRencontre.getAddresse,
-                          isUser: mesDemandePresenter.isUser(demande.getDemandeur.toString()),
+                          isUser: mesDemandePresenter
+                              .isUser(demande.getDemandeur.toString()),
                           etat: demande.etat,
                           presenter: mesDemandePresenter,
                         ),
@@ -65,7 +67,7 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                     );
                   });
             } else {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
           },
         )

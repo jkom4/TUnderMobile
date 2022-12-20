@@ -35,17 +35,18 @@ class HttpCoursRepository implements IcoursRepository {
       {required String blocName, required String coursName}) async {
     var jwtString;
     // je recupere le token dans le secureStorage
-    await UserSessionProvider.getInstance!.get(key: "jwtToken").then((value)  async {
+    await UserSessionProvider.getInstance!
+        .get(key: "jwtToken")
+        .then((value) async {
       jwtString = value;
     });
     var json = jsonDecode(jwtString!);
-    var token = json['tokenString'] ;
-      Response response =
-      await http.get(Uri.parse("$apiUrl/Cours/$blocName/bloc/$coursName"),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "bearer $token"
-          });
+    var token = json['tokenString'];
+    Response response = await http
+        .get(Uri.parse("$apiUrl/Cours/$blocName/Bloc/$coursName"), headers: {
+      "Content-Type": "application/json",
+      "Authorization": "bearer $token"
+    });
 
     if (response.statusCode == 200) {
       return (jsonDecode(response.body) as List)
@@ -58,7 +59,7 @@ class HttpCoursRepository implements IcoursRepository {
 
   @override
   Future<List<Cours>> getAllCours() async {
-    Response response = await http.get(Uri.parse("$apiUrl/Cours/cours"));
+    Response response = await http.get(Uri.parse("$apiUrl/Cours"));
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
           .map((e) => Cours.fromJson(e))

@@ -7,10 +7,5 @@ abstract class IConnexionRepository {
   Future signInWithGoogle();
   Future fetchLogin(String email, String password);
   Future fecthJwtForSigninGoogle(GoogleSignInAccount? currentUser);
-  Future fetchUsrHoraire();
-  Future getUsrLink();
-  Future postUsrLink(String link);
   void logout() {}
-
-  Future<List> fetchRendezVous() ;
 }
