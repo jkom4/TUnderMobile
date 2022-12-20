@@ -29,58 +29,79 @@ class _DemandeItemState extends State<DemandeItem> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Card(
       child: Column(
         children: [
           ListTile(
             leading: Icon(Icons.school_outlined),
             title: Text('${widget.prenom} '),
-            subtitle: Text('${widget.cours}      Status: ${widget.etat}',),
+            subtitle: Text('${widget.cours}      Statut : ${widget.etat}',),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: widget.isUser
-                ? <Widget>[
-                    const SizedBox(width: 8),
+            children: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                    foregroundColor: Colors.lightBlueAccent),
+                child: const Text('Details'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailDemande(
+                          nom: widget.nom,
+                          prenom: widget.prenom,
+                          cours: widget.cours,
+                          date: widget.date,
+                          lieu: widget.lieu,
+                          presenter: widget.presenter,
+                          id: widget.id,
+                          etat: widget.etat,
+                        )),
+                  );
+                },
+              ),
+          widget.isUser // Si il s'agit du demandeur alors il peut que annuler ou voir les details
+                ?
+
+                    widget.etat =='waiting' // Si la demande n'est pas en attente alors il peut pas l'annuler
+                        ?
+
                     TextButton(
                       style: TextButton.styleFrom(
-                          foregroundColor: Colors.lightBlue),
-                      child: const Text('Fermer'),
+                          foregroundColor: Colors.red),
+                      child: const Text('Annuler'),
                       onPressed: () {
-                        /* ... */
+                        showDialog(context: context,
+                            builder: (context)=> AlertDialog(
+                              title: const Text("Avertissement"),
+                              content: const Text("Êtes vous sur de vouloir annuler la demande?"),
+                              actions: [
+                                TextButton(onPressed: () => Navigator.pop(context),
+                                    child: const Text('Non')),
+                                TextButton(onPressed: () {
+                                  Navigator.pop(context);
+                                  widget.presenter.updateStatus(widget.id, 2);
+
+                                    },
+                                    child: const Text('Oui'))
+                              ],
+                            ));
                       },
-                    ),
-                    const SizedBox(width: 8),
-                  ]
-                : <Widget>[
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          foregroundColor: Colors.lightBlueAccent),
-                      child: const Text('Details'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetailDemande(
-                                    nom: widget.nom,
-                                    prenom: widget.prenom,
-                                    cours: widget.cours,
-                                    date: widget.date,
-                                    lieu: widget.lieu,
-                                    presenter: widget.presenter,
-                                    id: widget.id,
-                                    etat: widget.etat,
-                                  )),
-                        );
-                      },
-                    ),
+                    )
+                        :
+                        ///N'affiche rien dans le cas ou la demande a déja été traité
+
+                    const SizedBox(width: 8)
+
+                :
+
                     TextButton(
                       style: TextButton.styleFrom(
                           foregroundColor: Colors.redAccent),
                       child: const Text('Refuser'),
                       onPressed: () {
-                        widget.presenter.updateStatus(widget.id, false);
+                        widget.presenter.updateStatus(widget.id, 0);
                       },
                     ),
                     const SizedBox(width: 8),
@@ -89,7 +110,7 @@ class _DemandeItemState extends State<DemandeItem> {
                           foregroundColor: Colors.lightBlue),
                       child: const Text('Accepter'),
                       onPressed: () {
-                        widget.presenter.updateStatus(widget.id, true);
+                        widget.presenter.updateStatus(widget.id, 1);
                       },
                     ),
 

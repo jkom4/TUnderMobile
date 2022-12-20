@@ -6,7 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class Environment {
   static String get fileName {
     if (kReleaseMode) {
-      debugPrint('erg');
       return '.env.production';
     }
     return '.env.development';

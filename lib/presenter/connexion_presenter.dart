@@ -45,6 +45,7 @@ class ConnexionPresenter {
   ///Une fois que les credentials sont bon et le JWT obtenu alors on le set dans le FlutterSecureStorage
   Connect(String email, String password) {
     if(email.isNotEmpty && password.isNotEmpty){
+
       _repository
           .fetchLogin(email, password)
           .then((value)

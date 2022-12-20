@@ -31,15 +31,55 @@ class MesDemandesPresenter {
     return false;
   }
 
-  ///Permet de modifeir le status d'une demande
+  ///Permet de modifier le statut d'une demande
   ///params int id( id de la demande), bool bool (true pour accepter la demande et false pour refuser)
-  void updateStatus(int id, bool bool) async {
+  void updateStatus(int id, int statut) async {
+
     try{
-      Demande demande =  bool? Demande(id, "accepted", "", "", "", Cours(" ",""), null) : Demande(id, "rejected", "", "", "", Cours(" ",""), null);
+      Demande demande =  statut == 1 ? Demande(id, "accepted", "", "", "", Cours(" ",""), null) : statut == 0?  Demande(id, "rejected", "", "", "", Cours(" ",""), null)
+      :Demande(id, "canceled", "", "", "", Cours(" ",""), null) ;
       await  demandeRepository.UpdateStatus(demande);
       mesDemandeView.displayConfirmation("Envoyé avec succès !");
+      mesDemandeView.refresh();
     }on Error catch (e) {
       mesDemandeView.displayError(e.toString());
     }
   }
+  ///Permet de trier les demandes par date
+  ///params data la liste de demandes a trier, id (la variable correspondant a la l'ordre de trie 1 ou -1)
+  /// retourne un entier correspondant a l'ordre de trie. si il est demande de trier en croissant(1) alors il retourne -1
+  sort( data,int id) {
+    data = data as List<Demande>;
+    if(id == 1){
+      data.sort((a,b) {
+        return a.rencontre.getDate.compareTo(b.rencontre.getDate);
+      });
+      return -1;
+    }else{
+      data.sort((a,b) {
+        return b.rencontre.getDate.compareTo(a.rencontre.getDate);
+      });
+      return 1;
+    }
+
+
+  }
+
+  ///Permet de trier les demandes par statut
+  ///params data la liste de demandes a trier, id (la variable correspondant a la l'ordre de trie 1 ou -1)
+  /// retourne un entier correspondant a l'ordre de trie. si il est demande de trier en croissant(1) alors il retourne -1
+   sortByStatut(data,int id) {
+     data = data as List<Demande>;
+     if (id == 1) {
+       data.sort((a, b) {
+         return a.getEtat!.compareTo(b.getEtat!);
+       });
+       return -1;
+     } else {
+       data.sort((a, b) {
+         return b.getEtat!.compareTo(a.getEtat!);
+       });
+       return 1;
+     }
+   }
 }

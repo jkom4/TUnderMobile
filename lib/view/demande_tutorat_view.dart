@@ -91,7 +91,6 @@ class _DemandeTutoratState extends State<DemandeTutorat>
                 ElevatedButton(
                   onPressed: () {
                     navigateAndGetRencontre(context).then((value) {
-                      print(value);
                      var json =  jsonDecode(value);
                      date = json['date'];
                      lieu = json['lieu'];

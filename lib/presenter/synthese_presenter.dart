@@ -41,8 +41,6 @@ class SynthesePresenter {
     } else {
       Cours cours = Cours(coursSelected, blocSelected);
       await _repository.saveFile(result!).then((url) async {
-        print("file save !");
-        print(url);
         Synthese synthese = Synthese(0, null, url, null, cours);
         await _repository.addSynthese(synthese);
         _view.displayConfirmation("Synthèse enregistrée");

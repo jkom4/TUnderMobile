@@ -81,7 +81,6 @@ class _SynthesePageState extends State<SynthesePage> implements ISyntheseView {
                                     .synthesesForCours(cours)
                                     .then((value) {
                                   var syntheses = value;
-                                  print("Syntheses : ${syntheses.length}");
                                   if (syntheses.isEmpty) {
                                     displayError(
                                         "Aucune synthèses n'a été trouvée !");

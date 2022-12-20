@@ -46,9 +46,9 @@ class DetailDemande extends StatelessWidget {
                   color: Colors.black,
                 ),
                 children: <TextSpan>[
-                  TextSpan(
+                  const TextSpan(
                       text: 'Nom : ',
-                      style: const TextStyle(
+                      style:  TextStyle(
                           color: Colors.grey,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
@@ -56,7 +56,7 @@ class DetailDemande extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             RichText(
               text: TextSpan(
                 style: const TextStyle(
@@ -64,9 +64,9 @@ class DetailDemande extends StatelessWidget {
                   color: Colors.black,
                 ),
                 children: <TextSpan>[
-                  TextSpan(
+                 const  TextSpan(
                       text: 'Prenom : ',
-                      style: const TextStyle(
+                      style:  TextStyle(
                           color: Colors.grey,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
@@ -168,7 +168,7 @@ class DetailDemande extends StatelessWidget {
             else ...[
                     ElevatedButton.icon(
                             onPressed: () {
-                              presenter.updateStatus(id, true);
+                              presenter.updateStatus(id, 1);
                               Navigator.pop(context);
                             },
                             style: ElevatedButton.styleFrom(
@@ -181,7 +181,7 @@ class DetailDemande extends StatelessWidget {
                           ),
                     ElevatedButton.icon(
                       onPressed: () {
-                              presenter.updateStatus(id, false);
+                              presenter.updateStatus(id, 0);
                               Navigator.pop(context);
                             },
                             style: ElevatedButton.styleFrom(

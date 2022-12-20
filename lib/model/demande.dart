@@ -62,7 +62,7 @@ class Demande {
   set setEtat(String etat) {
     if (etat.isNotEmpty) {
       etat = etat.toLowerCase();
-      if (etat == "waiting" || etat == "accepted" || etat == "rejected") {
+      if (etat == "waiting" || etat == "accepted" || etat == "rejected" || etat == "canceled") {
         this.etat = etat;
       }
     }

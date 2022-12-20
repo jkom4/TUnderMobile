@@ -41,7 +41,6 @@ class HttpDemandeRepository implements IdemandeRepository {
         List<Demande> demandes = await (jsonDecode(response.body) as List)
             .map((i) => Demande.fromJson(i))
             .toList();
-        print("200 demande" + demandes.first.etat);
         return  demandes;
 
       } else {
@@ -81,7 +80,7 @@ class HttpDemandeRepository implements IdemandeRepository {
       var json = jsonDecode(value!);
       var token = json['tokenString'];
 
-      Response response = await http.post(Uri.parse("$apiUrl/Tutorat/updateStatus"),
+      Response response = await http.put(Uri.parse("$apiUrl/Tutorat/Status"),
           body: jsonEncode(demandeToUpdate.toJson()),
           headers: {
             "Content-Type": "application/json",

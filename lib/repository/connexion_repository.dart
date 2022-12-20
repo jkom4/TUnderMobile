@@ -50,6 +50,7 @@ class ConnexionRepository implements IConnexionRepository {
     var headers = {"Content-Type": "application/json"};
     final response = await http.post(Uri.parse('${apiUrl}/Auth/token'),
         headers: headers, body: data);
+
     if (response.statusCode == 200) {
       return response.body;
     } else {

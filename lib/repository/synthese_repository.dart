@@ -75,7 +75,7 @@ class SyntheseRepository implements ISyntheseRepository {
       return syntheses;
     } else {
       String mess = response.statusCode.toString();
-      throw Exception('Failed to fetch syntheses {$mess}');
+      print('Failed to fetch syntheses {$mess}');
     }
   }
 
