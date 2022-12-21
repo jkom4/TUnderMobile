@@ -20,7 +20,7 @@ class MesDemandesPresenter {
     return await demandeRepository.getMyWaitingDemande();
   }
 
-  ///Permet de verifier s'il s'agit du current user
+  ///Permet de verifier si le demandeur est le current user
   ///params String username(le username dont on veut tester)
   ///return true s'il est bien le current user et false sinon
   bool isUser(String username) {
@@ -37,9 +37,11 @@ class MesDemandesPresenter {
     try{
       Demande demande =  statut == 1 ? Demande(id, "accepted", "", "", "", Cours(" ",""), null) : statut == 0?  Demande(id, "rejected", "", "", "", Cours(" ",""), null)
       :Demande(id, "canceled", "", "", "", Cours(" ",""), null) ;
-      await  demandeRepository.UpdateStatus(demande);
-      mesDemandeView.displayConfirmation("Envoyé avec succès !");
-      mesDemandeView.refresh();
+      await  demandeRepository.updateStatus(demande).whenComplete(() {
+        mesDemandeView.displayConfirmation("Envoyé avec succès !");
+        mesDemandeView.refresh();
+      });
+
     }on Error catch (e) {
       mesDemandeView.displayError(e.toString());
     }

@@ -13,9 +13,9 @@ class DemandeItem extends StatefulWidget {
       required this.isUser,
       required this.etat,
       required this.presenter,
-      required this.id});
+      required this.id, required this.gestionnaire});
 
-  final String nom, prenom, cours, date, lieu, etat;
+  final String nom, prenom, cours, date, lieu, etat, gestionnaire;
   final int id;
   final bool isUser;
   final MesDemandesPresenter presenter;
@@ -49,6 +49,7 @@ class _DemandeItemState extends State<DemandeItem> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => DetailDemande(
+                          gestionnaire : widget.gestionnaire,
                           nom: widget.nom,
                           prenom: widget.prenom,
                           cours: widget.cours,
@@ -61,10 +62,8 @@ class _DemandeItemState extends State<DemandeItem> {
                   );
                 },
               ),
-          widget.isUser // Si il s'agit du demandeur alors il peut que annuler ou voir les details
-                ?
 
-                    widget.etat =='waiting' // Si la demande n'est pas en attente alors il peut pas l'annuler
+                    widget.etat =='waiting' && widget.isUser // Si la demande n'est pas en attente alors il peut pas l'annuler et Si il s'agit  du demandeur alors il peut  annuler
                         ?
 
                     TextButton(
@@ -92,27 +91,8 @@ class _DemandeItemState extends State<DemandeItem> {
                         :
                         ///N'affiche rien dans le cas ou la demande a déja été traité
 
-                    const SizedBox(width: 8)
-
-                :
-
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          foregroundColor: Colors.redAccent),
-                      child: const Text('Refuser'),
-                      onPressed: () {
-                        widget.presenter.updateStatus(widget.id, 0);
-                      },
-                    ),
                     const SizedBox(width: 8),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          foregroundColor: Colors.lightBlue),
-                      child: const Text('Accepter'),
-                      onPressed: () {
-                        widget.presenter.updateStatus(widget.id, 1);
-                      },
-                    ),
+
 
 
 

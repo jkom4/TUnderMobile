@@ -14,9 +14,9 @@ class DetailDemande extends StatelessWidget {
       required this.lieu,
       required this.presenter,
       required this.id,
-      required this.etat});
+      required this.etat, required this.gestionnaire});
 
-  final String nom, prenom, cours, date, lieu, etat;
+  final String nom, prenom, cours, date, lieu, etat,gestionnaire;
   final int id;
   final MesDemandesPresenter presenter;
 
@@ -82,9 +82,9 @@ class DetailDemande extends StatelessWidget {
                   color: Colors.black,
                 ),
                 children: <TextSpan>[
-                  TextSpan(
+                 const TextSpan(
                       text: 'Cours : ',
-                      style: const TextStyle(
+                      style:  TextStyle(
                           color: Colors.grey,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
@@ -100,9 +100,9 @@ class DetailDemande extends StatelessWidget {
                   color: Colors.black,
                 ),
                 children: <TextSpan>[
-                  TextSpan(
+                  const TextSpan(
                       text: 'Date : ',
-                      style: const TextStyle(
+                      style:  TextStyle(
                           color: Colors.grey,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
@@ -118,9 +118,27 @@ class DetailDemande extends StatelessWidget {
                   color: Colors.black,
                 ),
                 children: <TextSpan>[
-                  TextSpan(
+                  const TextSpan(
+                      text: 'Envoyé a : ',
+                      style:  TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold)),
+                  TextSpan(text: gestionnaire),
+                ],
+              ),
+            ),
+            SizedBox(height: 8),
+            RichText(
+              text: TextSpan(
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.black,
+                ),
+                children: <TextSpan>[
+                  const TextSpan(
                       text: 'Lieu : ',
-                      style: const TextStyle(
+                      style:  TextStyle(
                           color: Colors.grey,
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
@@ -155,7 +173,7 @@ class DetailDemande extends StatelessWidget {
             ),
             SizedBox(height: 10),
 
-            if(etat != "waiting")
+            if(etat != "waiting" || presenter.isUser(prenom.toString()))
               ...[ Text(
                 etat,
                 style: const TextStyle(

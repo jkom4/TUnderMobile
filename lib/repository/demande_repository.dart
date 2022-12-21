@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:tunder/Model/userSession.dart';
 import 'package:tunder/model/demande.dart';
@@ -66,7 +67,7 @@ class HttpDemandeRepository implements IdemandeRepository {
       var json = jsonDecode(value!);
       var token = json['tokenString'];
 
-      Response response = await http.put(Uri.parse("$apiUrl/Tutorat/Status"),
+      Response response = await http.put(Uri.parse("$apiUrl/Tutorats/Tutorat/Status"),
           body: jsonEncode(demandeToUpdate.toJson()),
           headers: {
             "Content-Type": "application/json",
@@ -74,7 +75,7 @@ class HttpDemandeRepository implements IdemandeRepository {
           });
       if (response.statusCode != 200) {
         String mess = response.statusCode.toString();
-        throw Exception('Failed to update status {$mess}');
+        debugPrint('Failed to update status {$mess}');
       }
     });
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tunder/components/demande_item.dart';
 import 'package:tunder/presenter/mes_demande_presenter.dart';
 import 'package:tunder/presenter/i_mes_demandes.dart';
+import 'package:tunder/view/my_homePage.dart';
 ///
 /// Cette vue affiche la liste des demandes en attentes
 class MesDemandes extends StatefulWidget {
@@ -97,6 +98,7 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                               //on l'envoie au component qui permet d'afficher chaque element
                               DemandeItem(
                                 id: demande.id,
+                                gestionnaire : demande.getGestionnaire.toString(),
                                 nom: demande.getDemandeur.toString(),
                                 prenom: demande.getDemandeur.toString(),
                                 cours: demande.cours.getNom,
@@ -113,7 +115,9 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
                   ],
                 );
               } else {
-                return const CircularProgressIndicator();
+                return const  Center(
+                    child:  CircularProgressIndicator()
+                );
               }
             },
           )
@@ -143,6 +147,6 @@ class _MesDemandesState extends State<MesDemandes> implements ImesDemandes {
   @override
   void refresh() {
     Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => MesDemandes()));
+        MaterialPageRoute(builder: (BuildContext context) => MyHomePage()));
   }
 }
