@@ -42,7 +42,7 @@ class UserSessionProvider {
     var token = json['tokenString'];
     // To decode the token
     Map<String, dynamic> payload = Jwt.parseJwt(token);
-    return new Utilisateur(payload['Name'], payload['Name'], payload['Email']);
+    return  Utilisateur(payload['Name'], payload['Name'], payload['Email']);
   }
 
 }

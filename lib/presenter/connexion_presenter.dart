@@ -58,8 +58,13 @@ class ConnexionPresenter {
   ///Permet de recuperer les données de l'utilisateur connecté
   ///return objet Json {nom : "", email : ""}
   String currentUser() {
-    final user = userSession!.currentUser();
-    return jsonEncode({"nom": user.getNom, "email": user.getEmail});
+    final user = userSession?.currentUser();
+    if(user != null){
+      return jsonEncode({"nom": user.getNom, "email": user.getEmail});
+    }else{
+      return jsonEncode({"nom": "Loading", "email":"Loading"});
+    }
+
   }
 
   ///Permet de recuperer l'horaire de l'utilisateur connecté
