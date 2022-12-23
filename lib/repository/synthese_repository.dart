@@ -46,7 +46,7 @@ class SyntheseRepository implements ISyntheseRepository {
       final ref = FirebaseStorage.instance.ref(destination);
       var file = File(result.files.single.path!);
       ref.putFile(file);
-      return ref.getDownloadURL();
+      return fileName;
     } on FirebaseException catch (e) {
       debugPrint(e.toString());
     }
@@ -84,8 +84,11 @@ class SyntheseRepository implements ISyntheseRepository {
   }
 
   @override
-  Future downloadFile(String url) async {
+  Future downloadFile(String nameofFile) async {
     try {
+      final storageRef  = FirebaseStorage.instance.ref();
+      final url =
+      await storageRef.child('syntheses/$nameofFile').getDownloadURL();
       final httpsReference = FirebaseStorage.instance.refFromURL(url);
       final dir = await getApplicationDocumentsDirectory();
       final fileName = httpsReference.name;
