@@ -15,7 +15,6 @@ class NavigationPage extends StatefulWidget {
   final String lieu;
   @override
   _NavigationPageState createState() => _NavigationPageState();
-
 }
 
 class _NavigationPageState extends State<NavigationPage> {
@@ -43,20 +42,17 @@ class _NavigationPageState extends State<NavigationPage> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
-
   /// methode pour recuperer la position de l'utilisateur
   _getCurrentLocation() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
         _currentPosition = position;
-        print('CURRENT POS: $_currentPosition');
-
+        debugPrint('CURRENT POS: $_currentPosition');
       });
       await _getAddress();
     }).catchError((e) {
-      print(e);
+      debugPrint(e);
     });
   }
 
@@ -70,12 +66,12 @@ class _NavigationPageState extends State<NavigationPage> {
 
       setState(() {
         _currentAddress =
-        "${place.street} , ${place.locality}, ${place.postalCode}, ${place.country}";
+            "${place.street} , ${place.locality}, ${place.postalCode}, ${place.country}";
         startAddressController.text = _currentAddress;
         _startAddress = _currentAddress;
       });
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -85,7 +81,7 @@ class _NavigationPageState extends State<NavigationPage> {
       // Retrieving placemarks from addresses
       List<Location> startPlacemark = await locationFromAddress(_startAddress);
       List<Location> destinationPlacemark =
-      await locationFromAddress(_destinationAddress);
+          await locationFromAddress(_destinationAddress);
 
       // Use the retrieved coordinates of the current position,
       // instead of the address if the start position is user's
@@ -131,10 +127,10 @@ class _NavigationPageState extends State<NavigationPage> {
       markers.add(startMarker);
       markers.add(destinationMarker);
 
-      print(
+      debugPrint(
         'START COORDINATES: ($startLatitude, $startLongitude)',
       );
-      print(
+      debugPrint(
         'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
       );
 
@@ -198,12 +194,12 @@ class _NavigationPageState extends State<NavigationPage> {
 
       setState(() {
         _placeDistance = totalDistance.toStringAsFixed(2);
-        print('DISTANCE: $_placeDistance km');
+        debugPrint('DISTANCE: $_placeDistance km');
       });
 
       return true;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return false;
   }
@@ -221,11 +217,11 @@ class _NavigationPageState extends State<NavigationPage> {
 
   /// Creer le polylines pour montrer le chemin entre les deux points
   _createPolylines(
-      double startLatitude,
-      double startLongitude,
-      double destinationLatitude,
-      double destinationLongitude,
-      ) async {
+    double startLatitude,
+    double startLongitude,
+    double destinationLatitude,
+    double destinationLongitude,
+  ) async {
     polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       google_api_key, // Google Maps API Key
@@ -284,7 +280,8 @@ class _NavigationPageState extends State<NavigationPage> {
                 mapController.animateCamera(
                   CameraUpdate.newCameraPosition(
                     CameraPosition(
-                      target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
+                      target: LatLng(_currentPosition.latitude,
+                          _currentPosition.longitude),
                       zoom: 18.0,
                     ),
                   ),
@@ -410,39 +407,39 @@ class _NavigationPageState extends State<NavigationPage> {
                           SizedBox(height: 5),
                           ElevatedButton(
                             onPressed: (_startAddress != '' &&
-                                _destinationAddress != '')
+                                    _destinationAddress != '')
                                 ? () async {
-                              startAddressFocusNode.unfocus();
-                              desrinationAddressFocusNode.unfocus();
-                              setState(() {
-                                if (markers.isNotEmpty) markers.clear();
-                                if (polylines.isNotEmpty)
-                                  polylines.clear();
-                                if (polylineCoordinates.isNotEmpty)
-                                  polylineCoordinates.clear();
-                                _placeDistance = null;
-                              });
+                                    startAddressFocusNode.unfocus();
+                                    desrinationAddressFocusNode.unfocus();
+                                    setState(() {
+                                      if (markers.isNotEmpty) markers.clear();
+                                      if (polylines.isNotEmpty)
+                                        polylines.clear();
+                                      if (polylineCoordinates.isNotEmpty)
+                                        polylineCoordinates.clear();
+                                      _placeDistance = null;
+                                    });
 
-                              _calculateDistance().then((isCalculated) {
-                                if (isCalculated) {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          'Distance Calculé avec succèes'),
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          'Error calcul Distance'),
-                                    ),
-                                  );
-                                }
-                              });
-                            }
+                                    _calculateDistance().then((isCalculated) {
+                                      if (isCalculated) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'Distance Calculé avec succèes'),
+                                          ),
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content:
+                                                Text('Error calcul Distance'),
+                                          ),
+                                        );
+                                      }
+                                    });
+                                  }
                                 : null,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

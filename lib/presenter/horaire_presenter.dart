@@ -41,9 +41,9 @@ class HorairePresenter {
             dateFormat.parse(rdv['date']).add(Duration(hours: 2)),
             Colors.redAccent,
             false));
-        print(rdv.toString());
+        debugPrint(rdv.toString());
       }
-    }).catchError((onError) => print(onError));
+    }).catchError((onError) => debugPrint(onError.toString()));
   }
 
   ///Permet de traiter les données qui ont été recuperé de l'url de l'horaire et les ajouter dans l'objet Meeting

@@ -108,7 +108,6 @@ class _RendezVousState extends State<RendezVousPage> {
                         components: [Component(Component.country, "be")]);
 
                     lieuController.text = p!.description!;
-                    print(lieuController.text);
                   },
                 ),
               ),

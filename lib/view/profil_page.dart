@@ -28,13 +28,12 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
 
   @override
   Widget build(BuildContext context) {
-    final user = jsonDecode( _presenter.currentUser());
+    final user = jsonDecode(_presenter.currentUser());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Profil"),
       ),
-      body:
-     FutureBuilder(
+      body: FutureBuilder(
           future: data,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -106,7 +105,7 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
                   ],
                 );
               } else {
-                print(snapshot.error.toString());
+                debugPrint(snapshot.error.toString());
                 return ListView(
                   children: [
                     Align(
@@ -133,12 +132,12 @@ class _ProfilPageState extends State<ProfilPage> implements IConnexionView {
                           const SizedBox(height: 10),
                           TextFieldContainer(
                               child: TextField(
-                                controller: linkControler,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Lien horaire",
-                                ),
-                              )),
+                            controller: linkControler,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Lien horaire",
+                            ),
+                          )),
                           const SizedBox(height: 10),
                           ButtonTUnder(
                               height: MediaQuery.of(context).size.width * 0.15,

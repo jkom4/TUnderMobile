@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/src/file_picker_result.dart';
 import 'package:http/http.dart';
@@ -47,7 +48,7 @@ class SyntheseRepository implements ISyntheseRepository {
       ref.putFile(file);
       return ref.getDownloadURL();
     } on FirebaseException catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -78,7 +79,7 @@ class SyntheseRepository implements ISyntheseRepository {
       return syntheses;
     } else {
       String mess = response.statusCode.toString();
-      print('Failed to fetch syntheses {$mess}');
+      debugPrint('Failed to fetch syntheses {$mess}');
     }
   }
 
@@ -92,7 +93,7 @@ class SyntheseRepository implements ISyntheseRepository {
       await httpsReference.writeToFile(file);
       return file;
     } catch (e) {
-      print("repository " + e.toString());
+      debugPrint("repository $e");
     }
   }
 }
