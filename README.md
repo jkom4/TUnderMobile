@@ -5,6 +5,9 @@ Plus qu’un tutorat… Peut-être la rencontre d’une vie.
 
 This project is a starting point for a Flutter application.
 
+Go to android/app/src/main/res/values/string.xml and specify your MAPBOX TOKEN
+Go to lib/components/constants.dart an specify YOUR GOOGLE API TOKEN
+
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
